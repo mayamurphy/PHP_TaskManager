@@ -1,6 +1,18 @@
 <!DOCTYPE html>
+<?php
+    session_start();
+    if (isset($_SESSION["authenticated"]) && $_SESSION["authenticated"]) {
+        header("todo_list.php");
+        exit();
+    }
+
+    require_once "Dao.php"
+?>
 <html>
     <header>
+        <link rel="stylesheet" href="css\index.css">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script type="text/javascript" src="js\index.js"></script>
         <title>Task Manager</title>
     </header>
 
@@ -15,8 +27,8 @@
 
         <div class="form">
             <!-- Login form -->
-            <div class="login-form">
-                <form method="post" action="login_handler.php">
+            <div class="login-form-container">
+                <form id="login-form">
                     <div>
                         <!-- <label for="login-un">Username:</label> -->
                         <input type="text" placeholder="Enter Username" id="login-un" name="login-un">
@@ -32,8 +44,8 @@
             </div>
             
             <!-- Sign up form -->
-            <div class="signup-form">
-                <form method="post" action="signup_handler.php">
+            <div class="signup-form-container">
+                <form id="signup-form">
                     <div>
                         <!-- <label for="signup-un">Username:</label> -->
                         <input type="text" placeholder="Enter Username" id="signup-un" name="signup-un">
