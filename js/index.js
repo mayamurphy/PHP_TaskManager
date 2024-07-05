@@ -13,12 +13,6 @@ $(document).ready(function() {
         $(".login-form-container").css("display","block");
         $(".signup-form-container").css("display","none");
     });
-
-    $("#signup-un").change(function() {
-        if (1 == strlen($("#signup-un").values[0])) {
-            $(this).css("background-color","#f00");
-        }
-    });
 });
 
 $(function() {
@@ -26,14 +20,15 @@ $(function() {
         var values = $("#login-form").serialize();
         $.ajax ({
             type: "POST",
-            url: "handlers\login_handler.php",
+            url: "handlers/login_handler.php",
             data: values,
-            // data: {username: values[0].value, password: values[1].value},
             success: function() {
-                window.location.href = "todo.php";
+                // window.location.href = "todo.php";
+                alert("LOGIN SUCCESS");
+                return false;
             },
             error: function() {
-                alert("FAILURE");
+                alert("LOGIN FAILURE"+values);
             }
         });
         return false;
@@ -45,16 +40,43 @@ $(function() {
         var values = $("#signup-form").serialize();
         $.ajax ({
             type: "POST",
-            url: "handlers\signup_handler.php",
+            url: "handlers/signup_handler.php",
             data: values,
-            // data: {username: values[0].value, password: values[1].value, confirm_password: values[2].value},
             success: function() {
                 window.location.href = "index.php";
             },
             error: function() {
-                alert("FAILURE");
+                alert("SIGNUP FAILURE");
             }
         });
         return false;
     });
 });
+
+function signupValidation() {
+    var username = document.getElementById("signup-un").value;
+    var password = document.getElementById("signup-pw").value;
+    var confirm_password = document.getElementById("signup-confirm-pw").value;
+
+    if (1 > username.length || 64 < username.length) {
+        $("#signup-un").css("border-color", "#F00");
+        console.log(username);
+    } else {
+        $("#signup-un").css("border-color", "#FFF");
+    }
+
+    if (8 > password.length) {
+        $("#signup-pw").css("border-color", "#F00");
+    }
+    else {
+        
+        $("#signup-pw").css("border-color", "#FFF");
+    }
+
+    if (confirm_password !== password) {
+        $("#signup-confirm-pw").css("border-color", "#F00");
+    }
+    else {
+        $("#signup-confirm-pw").css("border-color", "#FFF");
+    }
+}

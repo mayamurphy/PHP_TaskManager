@@ -3,4 +3,4 @@
     require_once "../Dao.php";
 
     $dao = new Dao();
-    $dao->addUser($_POST['signup-un'], $_POST['signup-pw']);
+    return $dao->validLogin($_POST['login-un'], $_POST['login-pw']);

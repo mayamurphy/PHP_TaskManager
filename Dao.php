@@ -1,7 +1,7 @@
 <?php
     class Dao {
         private $host = "localhost";
-        private $db = "mytasks";
+        private $db = "taskmanager";
         private $user = "root";
         private $pass = "";
 
@@ -16,7 +16,7 @@
             $users_table = "CREATE TABLE IF NOT EXISTS
                             users (user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                             username VARCHAR(64) NOT NULL UNIQUE,
-                            password VARCHAR(64) NOT NULL;";
+                            password VARCHAR(64) NOT NULL);";
             $q = $conn->prepare($users_table);
             $q->execute();
         }

@@ -2,7 +2,7 @@
 <?php
     session_start();
     if (isset($_SESSION["authenticated"]) && $_SESSION["authenticated"]) {
-        header("todo_list.php");
+        header("todo.php");
         exit();
     }
 
@@ -45,7 +45,7 @@
             
             <!-- Sign up form -->
             <div class="signup-form-container">
-                <form id="signup-form">
+                <form id="signup-form" onkeyup="signupValidation()">
                     <div>
                         <!-- <label for="signup-un">Username:</label> -->
                         <input type="text" placeholder="Enter Username" id="signup-un" name="signup-un">
