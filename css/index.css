@@ -23,10 +23,12 @@ html {
 }
 
 .slider {
+    position: relative;
     display: flex;
-    height: 30px;
+    height: 35px;
 
     margin-top: 30%;
+    margin-bottom: 25px;
 
     background-color: #E28743;
     border: 2px none;
@@ -36,7 +38,7 @@ html {
 }
 
 .slider button {
-    height: 20px;
+    height: 25px;
     width: 100px;
 
     text-align: center;
@@ -54,13 +56,13 @@ html {
 }
 
 .form {
-    position: absolute;
+    /* position: absolute; */
     height: fit-content;
 
     top: 50%;
     left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    /* -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
 
     text-align: center;
 }
@@ -82,4 +84,8 @@ html {
 
     height: fit-content;
     padding-top: 10px;
+}
+
+#error-messages {
+    color: #F00;
 }

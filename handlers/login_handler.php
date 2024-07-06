@@ -3,4 +3,9 @@
     require_once "../Dao.php";
 
     $dao = new Dao();
-    return $dao->validLogin($_POST['login-un'], $_POST['login-pw']);
+    $valid_login = $dao->validLogin($_POST['login-un'], $_POST['login-pw']);
+
+    if ($valid_login) {
+        $_SESSION['authenticated'] = "authenticated";
+        $_SESSION['user_id'] = $valid_login[0]['user_id'];
+    }

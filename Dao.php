@@ -1,9 +1,12 @@
 <?php
+    require_once "Klogger.php";
     class Dao {
         private $host = "localhost";
         private $db = "taskmanager";
         private $user = "root";
         private $pass = "";
+
+        protected $logger;
 
         public function getConnection() {
             return new PDO("mysql:host={$this->host};dbname={$this->db}", 
@@ -12,6 +15,7 @@
         }
 
         public function __construct() {
+            $this->logger = new KLogger ( "log.txt" , KLogger::DEBUG );
             $conn = $this->getConnection();
             $users_table = "CREATE TABLE IF NOT EXISTS
                             users (user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -33,14 +37,17 @@
         public function usernameExists($username) {
             $conn = $this->getConnection();
             $res = $conn->query("SELECT username FROM users WHERE username = '{$username}';")->fetchAll(PDO::FETCH_ASSOC);
+            
+            $this->logger->LogInfo("usernameExists: [{$username}]");
             return $res ? true : false;
         }
 
         public function validLogin($username, $password) {
+            $this->logger->LogInfo("validLogin");
             if ($this->usernameExists($username)) {
                 $conn = $this->getConnection();
-                $res = $conn->query("SELECT password FROM users WHERE username = '{$username}';")->fetchAll(PDO::FETCH_ASSOC);
-                return password_verify($password, $res[0]['password']);
+                $res = $conn->query("SELECT * FROM users WHERE username = '{$username}';")->fetchAll(PDO::FETCH_ASSOC);
+                return password_verify($password, $res[0]['password']) ? $res : false;
             }
             return false;
         }
@@ -58,6 +65,8 @@
             $q->bindParam(":username", $username);
             $q->bindParam(":password", $password);
             $q->execute();
+            
+            $this->logger->LogInfo("addUser: [{$username}]");
         }
 
         /* delete user */

@@ -21,8 +21,8 @@
     
         <!-- login-sign up slider -->
         <div class="slider">
-            <button id="login-page">Login</button>
-            <button id="signup-page">Sign Up</button>
+            <button id="login-page" type="button">Login</button>
+            <button id="signup-page" type="button">Sign Up</button>
         </div>
 
         <div class="form">

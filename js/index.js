@@ -38,18 +38,38 @@ $(function() {
 $(function() {
     $("#signup-form").submit(function() {
         var values = $("#signup-form").serialize();
-        $.ajax ({
-            type: "POST",
-            url: "handlers/signup_handler.php",
-            data: values,
-            success: function() {
-                window.location.href = "index.php";
-            },
-            error: function() {
-                alert("SIGNUP FAILURE");
-            }
-        });
-        return false;
+
+        var username = document.getElementById("signup-un").value;
+        var password = document.getElementById("signup-pw").value;
+        var confirm_password = document.getElementById("signup-confirm-pw").value;
+
+        if ("" === username) {
+            $("<div id='error-messages'>Username not entered.</div>").insertBefore("#signup-form");
+        }
+        if ("" === password || "" === confirm_password) {
+            $("<div id='error-messages'>Password not entered.</div>").insertBefore("#signup-form");
+            return false;
+        }
+        else if (password !== confirm_password) {
+            $("<div id='error-messages'>Passwords do not match.</div>").insertBefore("#signup-form");
+            return false;
+        }
+        else {
+            alert("ajax");
+            $.ajax ({
+                type: "POST",
+                url: "handlers/signup_handler.php",
+                data: values,
+                success: function() {
+                    window.location.href = "index.php";
+                },
+                error: function(response) {
+                    alert(response);
+                    alert("SIGNUP FAILURE");
+                }
+            });
+            return false;
+        }
     });
 });
 
@@ -69,7 +89,6 @@ function signupValidation() {
         $("#signup-pw").css("border-color", "#F00");
     }
     else {
-        
         $("#signup-pw").css("border-color", "#FFF");
     }
 
