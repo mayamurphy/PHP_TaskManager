@@ -4,13 +4,15 @@
 
     $username = $_POST['signup-un'];
     $password = $_POST['signup-pw'];
-    $confirm_password = $_POST['signup-confirm-pw'];
 
     $dao = new Dao();
 
-    if ("" === $username || $dao->usernameExists($username)) {
-        return false;
+    if ($dao->usernameExists($username)) {
+        $_SESSION['username_exists'] = true;
+        $_SESSION['signup_inputs'] = $_POST;
     }
     else {
-        $dao->addUser($_POST['signup-un'], $_POST['signup-pw']);
+        $dao->addUser($username, $password);
+        unset($_SESSION['username_exists']);
+        unset($_SESSION['signup_inputs']);
     }

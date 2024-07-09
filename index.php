@@ -28,6 +28,12 @@
         <div class="form">
             <!-- Login form -->
             <div class="login-form-container">
+                <!-- error: Invalid login  -->
+                <?php
+                    if (isset($_SESSION["invalid_login"]) && $_SESSION["invalid_login"]) {
+                        echo "<div id='error-messages-invalid-login'>Invalid login.</div>";
+                    }
+                ?>
                 <form id="login-form">
                     <div>
                         <!-- <label for="login-un">Username:</label> -->
@@ -45,10 +51,17 @@
             
             <!-- Sign up form -->
             <div class="signup-form-container">
+                <!-- error: username taken -->
+                <?php
+                    if (isset($_SESSION["username_exists"]) && $_SESSION["username_exists"]) {
+                        echo "<div id='error-messages-un-taken'>Username taken.</div>";
+                    }
+                ?>
                 <form id="signup-form" onkeyup="signupValidation()">
                     <div>
                         <!-- <label for="signup-un">Username:</label> -->
-                        <input type="text" placeholder="Enter Username" id="signup-un" name="signup-un">
+                        <input type="text" placeholder="Enter Username" id="signup-un" name="signup-un"
+                        value="<?php echo isset($_SESSION['signup_inputs']['signup-un']) ? htmlspecialchars($_SESSION['signup_inputs']['signup-un']): ""?>">
                     </div>
                     <div>
                         <!-- <label for="signup-pw">Password:</label> -->
