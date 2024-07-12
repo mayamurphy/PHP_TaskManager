@@ -16,23 +16,26 @@ $(document).ready(function() {
 });
 
 // switch to signup page if username is taken
-$("#error-messages-un-taken").ready(function() {
-    $("#signup-page").css("background-color","#FAF");
-    $("#login-page").css("background-color","transparent");
-    $(".signup-form-container").css("display","block");
-    $(".login-form-container").css("display","none");
-    $("#signup-un").css("border-color", "#F00");
-});
+$(function() {
+    if (0 < $("#error-messages-un-taken").length) {
+        alert("error-messages-un-taken");
+        $("#signup-page").css("background-color","#FAF");
+        $("#login-page").css("background-color","transparent");
+        $(".signup-form-container").css("display","block");
+        $(".login-form-container").css("display","none");
+        $("#signup-un").css("border-color", "#F00");
+    }
 
-
-$("#error-messages-invalid-login").ready(function() {
-    $("#login-page").css("background-color","#FAF");
-    $("#signup-page").css("background-color","transparent");
-    $(".login-form-container").css("display","block");
-    $(".signup-form-container").css("display","none");
-    $("#login-un").css("border-color", "#F00");
-    $("#login-pw").css("border-color", "#F00");
-    $("#error-messages-un-taken").css("color","#F00");
+    if (0 < $("#error-messages-invalid-login").length) {
+        alert("error-messages-invalid-login");
+        $("#login-page").css("background-color","#FAF");
+        $("#signup-page").css("background-color","transparent");
+        $(".login-form-container").css("display","block");
+        $(".signup-form-container").css("display","none");
+        $("#login-un").css("border-color", "#F00");
+        $("#login-pw").css("border-color", "#F00");
+        $("#error-messages-un-taken").css("color","#F00");
+    }
 });
 
 // AJAX submit
