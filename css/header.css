@@ -1,0 +1,25 @@
+html {
+    margin: auto;
+}
+
+body {
+    width: 300px;
+    margin: auto;
+    margin-top: 20px;
+
+
+    /* background-color: red; */
+}
+
+.header {
+    height: fit-content;
+    width: 300px;
+
+    margin:auto;
+
+    background-color: white;
+}
+
+#menu {
+    text-align: center;
+}

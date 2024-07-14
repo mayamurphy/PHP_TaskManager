@@ -8,6 +8,7 @@
     if ($valid_login) {
         $_SESSION['authenticated'] = "authenticated";
         $_SESSION['user_id'] = $valid_login[0]['user_id'];
+        $_SESSION['username'] = $valid_login[0]['username'];
 
         // unset if user had previously unsuccessful logins
         if (isset($_SESSION['invalid_login'])) {
