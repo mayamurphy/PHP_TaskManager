@@ -24,8 +24,12 @@
         if (isset($_SESSION['signup_inputs'])) {
             unset($_SESSION['signup_inputs']);
         }
+        header('Location: ../todo.php');
+        exit();
     }
     else {
         $_SESSION['invalid_login'] = true;
         $_SESSION['login_inputs'] = $_POST;
+        header('Location: ../index.php');
+        exit();
     }

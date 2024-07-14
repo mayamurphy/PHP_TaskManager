@@ -34,10 +34,11 @@
                         echo "<div id='error-messages-invalid-login'>Invalid login.</div>";
                     }
                 ?>
-                <form id="login-form">
+                <form id="login-form" method="POST" action="handlers/login_handler.php">
                     <div>
                         <!-- <label for="login-un">Username:</label> -->
-                        <input type="text" placeholder="Enter Username" id="login-un" name="login-un">
+                        <input type="text" placeholder="Enter Username" id="login-un" name="login-un"
+                            value="<?php echo isset($_SESSION['login_inputs']['login-un']) ? htmlspecialchars($_SESSION['login_inputs']['login-un']) : ""; ?>">
                     </div>
                     <div>
                         <!-- <label for="login-pw">Password:</label> -->

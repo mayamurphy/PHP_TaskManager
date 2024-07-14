@@ -18,7 +18,6 @@ $(document).ready(function() {
 // switch to signup page if username is taken
 $(function() {
     if (0 < $("#error-messages-un-taken").length) {
-        alert("error-messages-un-taken");
         $("#signup-page").css("background-color","#FAF");
         $("#login-page").css("background-color","transparent");
         $(".signup-form-container").css("display","block");
@@ -27,36 +26,17 @@ $(function() {
     }
 
     if (0 < $("#error-messages-invalid-login").length) {
-        alert("error-messages-invalid-login");
         $("#login-page").css("background-color","#FAF");
         $("#signup-page").css("background-color","transparent");
         $(".login-form-container").css("display","block");
         $(".signup-form-container").css("display","none");
         $("#login-un").css("border-color", "#F00");
         $("#login-pw").css("border-color", "#F00");
-        $("#error-messages-un-taken").css("color","#F00");
+        $("#error-messages-invalid-login").css("color","#F00");
     }
 });
 
 // AJAX submit
-$(function() {
-    $("#login-form").submit(function() {
-        var values = $("#login-form").serialize();
-        $.ajax ({
-            type: "POST",
-            url: "handlers/login_handler.php",
-            data: values,
-            success: function() {
-                window.location.href = "todo.php";
-            },
-            error: function() {
-                alert("LOGIN FAILURE");
-            }
-        });
-        return false;
-    });
-});
-
 $(function() {
     $("#signup-form").submit(function() {
         var values = $("#signup-form").serialize();
@@ -71,6 +51,7 @@ $(function() {
                 $("#error-messages-un").css("color", "#F00");
                 $("#signup-un").css("border-color", "#F00");
             }
+            return false;
         }
         else {
             $("div").remove("#error-messages-un");
@@ -80,6 +61,19 @@ $(function() {
         if ("" === password) {
             if (0 === $("#error-messages-pw").length) {
                 $("<div id='error-messages-pw'>Password not entered.</div>").insertBefore("#signup-form");
+                $("#error-messages-pw").css("color", "#F00");
+                $("#signup-pw").css("border-color", "#F00");
+            }
+            return false;
+        }
+        else {
+            $("div").remove("#error-messages-pw");
+            $("#signup-pw").css("border-color", "#FFF");
+        }
+
+        if (8 > password.length) {
+            if (0 === $("#error-messages-pw").length) {
+                $("<div id='error-messages-pw'>Password should be at least 8 characters.</div>").insertBefore("#signup-form");
                 $("#error-messages-pw").css("color", "#F00");
                 $("#signup-pw").css("border-color", "#F00");
             }
