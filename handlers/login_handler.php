@@ -25,7 +25,7 @@
         if (isset($_SESSION['signup_inputs'])) {
             unset($_SESSION['signup_inputs']);
         }
-        header('Location: ../todo.php');
+        header('Location: ../tasks.php');
         exit();
     }
     else {

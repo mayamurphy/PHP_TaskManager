@@ -2,7 +2,7 @@
 <?php
     session_start();
     if (isset($_SESSION["authenticated"]) && $_SESSION["authenticated"]) {
-        header("todo.php");
+        header("tasks.php");
         exit();
     }
 
