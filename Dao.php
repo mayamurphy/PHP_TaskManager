@@ -23,6 +23,18 @@
                             password VARCHAR(64) NOT NULL);";
             $q = $conn->prepare($users_table);
             $q->execute();
+
+            $tasks_table = "CREATE TABLE IF NOT EXISTS
+                            tasks (task_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                            user_id INT NOT NULL,
+                            task_name VARCHAR(256) NOT NULL,
+                            task_description VARCHAR(2056),
+                            task_due_date DATE NOT NULL,
+                            task_status VARCHAR(12) NOT NULL,
+                            task_date_added DATETIME,
+                            FOREIGN KEY (user_id) REFERENCES users(user_id));";
+            $q = $conn->prepare($tasks_table);
+            $q->execute();
         }
 
         /* used for updating db */
@@ -60,7 +72,7 @@
 
             $conn = $this->getConnection();
             $saveQuery = "INSERT INTO users (username, password)
-                            VALUE (:username, :password);";
+                            VALUES (:username, :password);";
             $q = $conn->prepare($saveQuery);
             $q->bindParam(":username", $username);
             $q->bindParam(":password", $password);
@@ -76,9 +88,29 @@
             /* remove user */
         }
         
+        /* add task */
+        public function addTask($user_id, $name, $description, $due_date) {
+            $date_added = date('Y-m-d H:i:s');
+            $this->logger->LogInfo("addTask: [{$user_id}], [{$name}], [{$description}], [{$due_date}], [{$date_added}]");
+            $conn = $this->getConnection();
+            $saveQuery = "INSERT INTO tasks (user_id, task_name, task_description, task_due_date, task_status, task_date_added)
+                            VALUES (:user_id, :task_name, :task_description, :task_due_date, 'Not Started', :task_date_added);";
+            $q = $conn->prepare($saveQuery);
+            $q->bindParam(":user_id", $user_id);
+            $q->bindParam(":task_name", $name);
+            $q->bindParam(":task_description", $description);
+            $q->bindParam(":task_due_date", $due_date);
+            $q->bindParam(":task_date_added",$date_added);
+            $q->execute();
+        }
 
         /* delete task */
-        public function removeTask($task_id) {
+        public function deleteTask($task_id) {
 
+        }
+
+        public function getAllTasks($user_id) {
+            $conn = $this->getConnection();
+            return $conn->query("SELECT * FROM tasks WHERE user_id = '{$user_id}'")->fetchAll(PDO::FETCH_ASSOC);
         }
     }

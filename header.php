@@ -11,8 +11,10 @@
 <html>
     <head>
         <link rel="stylesheet" href="css/header.css">
+        <link rel="stylesheet" href="css/tasks.css">
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script type="text/javascript" src="js\header.js"></script>
+        <script type="text/javascript" src="js\tasks.js"></script>
     </head>
 
     <body>
