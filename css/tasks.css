@@ -2,16 +2,19 @@
     display: none;
 }
 
-#addTaskForm {
+#addTaskForm,
+.editTaskForm-container {
     display: none;
     text-align: left;
 }
 
-#addTaskForm label {
+#addTaskForm label,
+#editTaskForm label {
     display: block;
 }
 
-#addTaskForm input {
+#addTaskForm input,
+.editTaskForm-container input {
     height: fit-content;
     width: 100%;
 
@@ -21,10 +24,46 @@
     border-radius: 40px;
 }
 
-#addTaskForm textarea {
+#addTaskForm textarea,
+.editTaskForm-container textarea {
     width: 100%;
     resize: vertical;
     padding: 5px;
 
     border-radius: 10px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table {
+    width: 100%;
+
+    margin-top: 5px;
+    border-color: #000;
+    border: 1px solid;
+}
+
+table td {
+    width: 50%;
+
+    margin-top: 5px;
+    border-color: #000;
+    border: 1px solid;
+}
+
+table tr {
+    display: block;
+    width: 100%;
+    
+    background-color: #fef;
+}
+
+#tt-description, #tt-due-date {
+    display: none;
+}
+
+.editTaskForm-container {
+    display: none;
 }

@@ -7,6 +7,9 @@
         header("Location: index.php");
         exit();
     }
+
+    require_once "Dao.php";
+    $dao = new Dao();
 ?>
 <html>
     <head>

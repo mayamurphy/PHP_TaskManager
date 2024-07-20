@@ -53,3 +53,12 @@ $(function() {
         return false;
     });
 });
+
+function openEditTaskForm(task_id) {
+    $("#"+task_id).css("display","block");
+}
+
+function closeEditTaskForm(task_id) {
+    $("#"+task_id).css("display","none");
+    $("#editTaskForm")[0].reset();
+}
