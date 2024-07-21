@@ -34,15 +34,12 @@
 }
 
 table {
-    border-collapse: collapse;
-}
-
-table {
     width: 100%;
 
     margin-top: 5px;
     border-color: #000;
     border: 1px solid;
+    border-collapse: collapse;
 }
 
 table td {
@@ -62,6 +59,7 @@ table tr {
 
 #tt-description, #tt-due-date {
     display: none;
+    width: fit-content;
 }
 
 .editTaskForm-container {
