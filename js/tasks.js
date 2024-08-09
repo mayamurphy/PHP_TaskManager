@@ -47,7 +47,8 @@ $(function() {
             url: "handlers/add_task_handler.php",
             data: values,
             success: function() {
-                $("#addTaskForm")[0].reset();
+                // $("#addTaskForm")[0].reset();
+                window.location.reload();
             },
             error: function () {
                 alert("Failed to add task :(");
@@ -60,11 +61,14 @@ $(function() {
 // open/close editTaskForm
 function openEditTaskForm(task_id) {
     $("#"+task_id).css("display","block");
+    $("#tasks-table").css("display","none");
     $("#openAddTaskForm").css("display","none");
 }
 
 function closeEditTaskForm(task_id) {
     $("#"+task_id).css("display","none");
+    $("#tasks-table").css("display","table");
+    $("#tasks-table tr").css("display","block");
     $("#editTaskForm")[0].reset();
     $("#openAddTaskForm").css("display","inline");
 }

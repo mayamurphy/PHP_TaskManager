@@ -17,6 +17,7 @@
                     <button id="closeAddTaskForm">Cancel</button>
                 </form>
 
+
                 <!-- display tasks -->
                 <div id="display-tasks">
                     <table id="tasks-table">
@@ -26,7 +27,7 @@
                             echo "<tr id=" . $line['task_id'] .
                             "><td id='tt-name'>" . htmlspecialchars($line['task_name']) .
                             "</td><td id='tt-status'>" . $line['task_status'] .
-                            "</td><td><button id='' onclick='openEditTaskForm(" . $line['task_id'] . ")'>&#128393</button>".
+                            "</td><td><button id='editTaskButton' onclick='openEditTaskForm(" . $line['task_id'] . ")'>&#128393</button>".
                             "</td><td id='tt-description'>" . htmlspecialchars($line['task_description']) .
                             "</td><td id='tt-due-date'>" . date('m-d-Y',strtotime($line['task_due_date'])) . "</td></tr>";
                         
@@ -40,6 +41,7 @@
                                 <textarea rows='10' id='task-description' name='task-description' value=" . htmlspecialchars($line['task_description']) . "></textarea>
                                 <label for='task-due-date'>Task due date:</label>
                                 <input type='date' id='task-due-date' name='task-due-date' value='" . date('m-d-Y',strtotime($line['task_due_date'])) ."'>
+                                <p style='color:red'>!!!!!!!!!!!!! ADD STATUS CHANGE HERE !!!!!!!!!!!</p>
                                 <button type='submit' id='submitEditTaskForm'>Save Task</button>
                             </form>
                             <button id='closeEditTaskForm' onclick='closeEditTaskForm(" . $line['task_id'] . ")'>Cancel</button></div>";
