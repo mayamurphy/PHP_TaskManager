@@ -23,23 +23,23 @@ $(function() {
     $("#addTaskForm").submit(function() {
         var values = $("#addTaskForm").serialize();
 
-        var name = document.getElementById("task-name").value;
-        var due_date = document.getElementById("task-due-date").value;
+        var name = document.getElementById("add-task-name").value;
+        var due_date = document.getElementById("add-task-due-date").value;
 
         if ("" === name) {
-            $("#task-name").css("border-color","#F00");
+            $("#add-task-name").css("border-color","#F00");
             return false;
         }
         else {
-            $("#task-name").css("border-color","#000");
+            $("#add-task-name").css("border-color","#000");
         }
 
         if (!Date.parse(due_date)) {
-            $("#task-due-date").css("border-color","#F00");
+            $("#add-task-due-date").css("border-color","#F00");
             return false;
         }
         else {
-            $("#task-due-date").css("border-color","#000");
+            $("#add-task-due-date").css("border-color","#000");
         }
 
         $.ajax ({
