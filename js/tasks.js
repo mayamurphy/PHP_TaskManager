@@ -1,19 +1,22 @@
 // open/close addTaskForm
 function openAddTaskForm() {
     $("#addTaskForm").css("display","block");
+    $("#addTaskForm input").css("border-color","#000");
     $("#openAddTaskForm").css("display","none");
     $("#display-tasks").css("display","none");
     $("#closeAddTaskForm").css("display","inline");
 };
 
-function closeAddTaskForm() {
-    $("#addTaskForm").css("display","none");
-    $("#addTaskForm")[0].reset();
-    $("#addTaskForm input").css("border-color","#000");
-    $("#openAddTaskForm").css("display","inline");
-    $("#closeAddTaskForm").css("display","none");
-    $("#display-tasks").css("display","block");
-};
+$(function() {
+    $("#closeAddTaskForm").click(function() {
+        $("#addTaskForm").css("display","none");
+        $("#addTaskForm")[0].reset();
+        $("#addTaskForm input").css("border-color","#000");
+        $("#openAddTaskForm").css("display","inline");
+        $("#closeAddTaskForm").css("display","none");
+        $("#display-tasks").css("display","block");
+    });
+});
 
 // AJAX for AddTaskForm
 $(function() {
@@ -54,11 +57,14 @@ $(function() {
     });
 });
 
+// open/close editTaskForm
 function openEditTaskForm(task_id) {
     $("#"+task_id).css("display","block");
+    $("#openAddTaskForm").css("display","none");
 }
 
 function closeEditTaskForm(task_id) {
     $("#"+task_id).css("display","none");
     $("#editTaskForm")[0].reset();
+    $("#openAddTaskForm").css("display","inline");
 }

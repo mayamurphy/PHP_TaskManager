@@ -2,10 +2,10 @@
         <?php require_once "header.php"?>
         
             <div id="tasks">
-                tasks
+                <p>tasks</p>
+                
                 <!-- add task form -->
                 <button id="openAddTaskForm" onclick="openAddTaskForm()">Add Task</button>
-                <button id="closeAddTaskForm" onclick="closeAddTaskForm()">X</button>
                 <form id="addTaskForm">
                     <label for="task-name">Task Name:</label>
                     <input type="text" id="task-name" name="task-name">
@@ -14,7 +14,9 @@
                     <label for="task-due-date">Task due date:</label>
                     <input type="date" id="task-due-date" name="task-due-date" value="<?php echo date('Y-m-d')?>">
                     <button type="submit" id="submitAddTaskForm">Add Task</button>
+                    <button id="closeAddTaskForm">Cancel</button>
                 </form>
+
                 <!-- display tasks -->
                 <div id="display-tasks">
                     <table id="tasks-table">
@@ -31,7 +33,6 @@
                             
                             // <!-- edit task form -->
                             echo "<div class='editTaskForm-container' id='". $line['task_id'] ."'>
-                            
                             <form id='editTaskForm'>
                                 <label for='task-name'>Task Name:</label>
                                 <input type='text' id='task-name' name='task-name' value='" . htmlspecialchars($line['task_name']) . "'>
@@ -40,7 +41,8 @@
                                 <label for='task-due-date'>Task due date:</label>
                                 <input type='date' id='task-due-date' name='task-due-date' value='" . date('m-d-Y',strtotime($line['task_due_date'])) ."'>
                                 <button type='submit' id='submitEditTaskForm'>Save Task</button>
-                            </form></div>";
+                            </form>
+                            <button id='closeEditTaskForm' onclick='closeEditTaskForm(" . $line['task_id'] . ")'>Cancel</button></div>";
                         }
                     ?>
                     </table>
