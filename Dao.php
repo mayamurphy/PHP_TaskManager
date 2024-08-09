@@ -55,7 +55,7 @@
         }
 
         public function validLogin($username, $password) {
-            $this->logger->LogInfo("validLogin");
+            $this->logger->LogInfo("validLogin: [{$username}], [date('Y-m-d H:i:s')]");
             if ($this->usernameExists($username)) {
                 $conn = $this->getConnection();
                 $res = $conn->query("SELECT * FROM users WHERE username = '{$username}';")->fetchAll(PDO::FETCH_ASSOC);
@@ -78,7 +78,7 @@
             $q->bindParam(":password", $password);
             $q->execute();
             
-            $this->logger->LogInfo("addUser: [{$username}]");
+            $this->logger->LogInfo("addUser: [{$username}], [date('Y-m-d H:i:s')]");
         }
 
         /* delete user */
@@ -121,7 +121,14 @@
             $q->bindParam(":task_due_date", $due_date);
             $q->bindParam(":task_status", $status);
             $q->execute();
-            $this->logger->LogInfo("editTask: [{$task_id}], [{$user_id}], [{$name}], [{$description}], [{$due_date}], [{$status}]");
+            $this->logger->LogInfo("editTask: [{$task_id}], [{$user_id}], [{$name}], [{$description}], [{$due_date}], [{$status}], [date('Y-m-d H:i:s')]");
+        }
+
+        /* valid task */
+        public function validTask($task_id, $user_id) {
+            $conn = $this->getConnection();
+            $res = $conn->query("SELECT * FROM tasks WHERE task_id = {$task_id} AND user_id = {$user_id};")->fetchAll(PDO::FETCH_ASSOC);
+            return $res;
         }
 
         /* delete task */

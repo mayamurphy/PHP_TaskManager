@@ -17,6 +17,24 @@
                     <button id="closeAddTaskForm">Cancel</button>
                 </form>
 
+                <form id="editTaskForm">
+                    <input type="hidden" id="user-id" value="<?php echo $_SESSION['user_id']?>">
+                    <input type="hidden" id="edit-task-id" name="edit-task-id">
+                    <label for="edit-task-name">Task Name:</label>
+                    <input type="text" id="edit-task-name" name="edit-task-name">
+                    <label for="edit-task-description">Task Description:</label>
+                    <textarea rows="10" id="edit-task-description" name="edit-task-description"></textarea>
+                    <label for="edit-task-due-date">Task due date:</label>
+                    <input type="date" id="edit-task-due-date" name="edit-task-due-date" value="<?php echo date('Y-m-d')?>">
+                    <label for="edit-task-status">Task Status:</label>
+                    <select id="edit-task-status" name="edit-task-status">
+                        <option value="Not Started">Not Started</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                    <button type="submit" id="submitEditTaskForm">Save Task</button>
+                    <button id="closeEditTaskForm">Cancel</button>
+                </form>
 
                 <!-- display tasks -->
                 <div id="display-tasks">
@@ -27,24 +45,14 @@
                             echo "<tr id=" . $line['task_id'] .
                             "><td id='tt-name'>" . htmlspecialchars($line['task_name']) .
                             "</td><td id='tt-status'>" . $line['task_status'] .
-                            "</td><td><button id='editTaskButton' onclick='openEditTaskForm(" . $line['task_id'] . ")'>&#128393</button>".
+                            "</td><td><button id='editTaskButton' 
+                                    onclick='openEditTaskForm(\"" . $line['task_id'] . "\",\""
+                                        . $line['task_name'] . "\",\""
+                                        . $line['task_description'] . "\",\""
+                                        . $line['task_due_date'] . "\",\""
+                                        . $line['task_status'] . "\")'>&#128393</button>".
                             "</td><td id='tt-description'>" . htmlspecialchars($line['task_description']) .
                             "</td><td id='tt-due-date'>" . date('m-d-Y',strtotime($line['task_due_date'])) . "</td></tr>";
-                        
-                            
-                            // <!-- edit task form -->
-                            echo "<div class='editTaskForm-container' id='". $line['task_id'] ."'>
-                            <form id='editTaskForm'>
-                                <label for='edit-task-name'>Task Name:</label>
-                                <input type='text' id='edit-task-name' name='edit-task-name' value='" . htmlspecialchars($line['task_name']) . "'>
-                                <label for='edit-task-description'>Task Description:</label>
-                                <textarea rows='10' id='edit-task-description' name='edit-task-description' value=" . htmlspecialchars($line['task_description']) . "></textarea>
-                                <label for='edit-task-due-date'>Task due date:</label>
-                                <input type='date' id='edit-task-due-date' name='edit-task-due-date' value='" . date('Y-m-d',strtotime($line['task_due_date'])) ."'>
-                                <p style='color:red'>!!!!!!!!!!!!! ADD STATUS CHANGE HERE !!!!!!!!!!!</p>
-                                <button type='submit' id='submitEditTaskForm'>Save Task</button>
-                            </form>
-                            <button id='closeEditTaskForm' onclick='closeEditTaskForm(" . $line['task_id'] . ")'>Cancel</button></div>";
                         }
                     ?>
                     </table>

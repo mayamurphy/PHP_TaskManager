@@ -47,7 +47,6 @@ $(function() {
             url: "handlers/add_task_handler.php",
             data: values,
             success: function() {
-                // $("#addTaskForm")[0].reset();
                 window.location.reload();
             },
             error: function () {
@@ -59,16 +58,68 @@ $(function() {
 });
 
 // open/close editTaskForm
-function openEditTaskForm(task_id) {
-    $("#"+task_id).css("display","block");
+function openEditTaskForm(id, name, desc, due, status) {
+    $("#editTaskForm").css("display","block");
+
+    $("#edit-task-id").val(id);
+    $("#edit-task-name").val(name);
+    $("#edit-task-description").val(desc);
+    $("#edit-task-due-date").val(due);
+    $("#edit-task-status").val(status);
+
     $("#tasks-table").css("display","none");
     $("#openAddTaskForm").css("display","none");
 }
 
-function closeEditTaskForm(task_id) {
-    $("#"+task_id).css("display","none");
+function closeEditTaskForm() {
+    $("#editTaskForm").css("display","none");
     $("#tasks-table").css("display","table");
     $("#tasks-table tr").css("display","block");
     $("#editTaskForm")[0].reset();
     $("#openAddTaskForm").css("display","inline");
 }
+
+// AJAX for editTaskForm
+$(function() {
+    $("#editTaskForm").submit(function() {
+        var values = $("#editTaskForm").serialize();
+
+        var name = document.getElementById("edit-task-name").value;
+        var due_date = document.getElementById("edit-task-due-date").value;
+        var status = document.getElementById("edit-task-status").value;
+
+        if ("" === name) {
+            $("#edit-task-name").css("border-color","#F00");
+            return false;
+        }
+        else {
+            $("#edit-task-name").css("border-color","#000");
+        }
+
+        if (!Date.parse(due_date)) {
+            $("#edit-task-due-date").css("border-color","#F00");
+            return false;
+        }
+        else {
+            $("#edit-task-due-date").css("border-color","#000");
+        }
+
+        if ("Not Started" != status && "In Progress" != status && "Completed" != status) {
+            $("#edit-task-status").css("border-color","#f00");
+            return false;
+        }
+
+        $.ajax ({
+            type: "POST",
+            url: "handlers/edit_task_handler.php",
+            data: values,
+            success: function() {
+                window.location.reload();
+            },
+            error: function () {
+                alert("Failed to edit task :(");
+            }
+        });
+        return false;
+    });
+});
