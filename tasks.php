@@ -40,7 +40,7 @@
                                 <label for='task-description'>Task Description:</label>
                                 <textarea rows='10' id='task-description' name='task-description' value=" . htmlspecialchars($line['task_description']) . "></textarea>
                                 <label for='task-due-date'>Task due date:</label>
-                                <input type='date' id='task-due-date' name='task-due-date' value='" . date('m-d-Y',strtotime($line['task_due_date'])) ."'>
+                                <input type='date' id='task-due-date' name='task-due-date' value='" . date('Y-m-d',strtotime($line['task_due_date'])) ."'>
                                 <p style='color:red'>!!!!!!!!!!!!! ADD STATUS CHANGE HERE !!!!!!!!!!!</p>
                                 <button type='submit' id='submitEditTaskForm'>Save Task</button>
                             </form>
