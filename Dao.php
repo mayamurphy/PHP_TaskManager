@@ -104,6 +104,26 @@
             $q->execute();
         }
 
+        /* edit task */
+        public function editTask($task_id, $user_id, $name, $description, $due_date, $status) {
+            $conn = $this->getConnection();
+            $saveQuery = "UPDATE tasks
+                            SET task_name = :task_name,
+                                task_description = :task_description,
+                                task_due_date = :task_due_date,
+                                task_status = :task_status
+                            WHERE task_id = :task_id AND user_id = :user_id;";
+            $q = $conn->prepare($saveQuery);
+            $q->bindParam(":task_id", $task_id);
+            $q->bindParam(":user_id", $user_id);
+            $q->bindParam(":task_name", $name);
+            $q->bindParam(":task_description", $description);
+            $q->bindParam(":task_due_date", $due_date);
+            $q->bindParam(":task_status", $status);
+            $q->execute();
+            $this->logger->LogInfo("editTask: [{$task_id}], [{$user_id}], [{$name}], [{$description}], [{$due_date}], [{$status}]");
+        }
+
         /* delete task */
         public function deleteTask($task_id) {
 
