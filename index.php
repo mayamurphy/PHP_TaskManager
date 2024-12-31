@@ -5,9 +5,8 @@
         header("Location: tasks.php");
         exit();
     }
-
-    require_once "Dao.php"
 ?>
+
 <html>
     <header>
         <link rel="stylesheet" href="css\index.css">

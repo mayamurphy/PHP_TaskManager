@@ -29,18 +29,22 @@
     border-radius: 10px;
 }
 
+#buttons {
+    margin-top: 10px;
+}
+
 table {
-    width: 100%;
+    width: 300px;
 
     margin-top: 5px;
     border-color: #000;
     border: 1px solid;
     border-collapse: collapse;
+
+    background-color: #fef;
 }
 
 table td {
-    width: 50%;
-
     margin-top: 5px;
     border-color: #000;
     border: 1px solid;
@@ -48,12 +52,27 @@ table td {
 
 table tr {
     display: block;
-    width: 100%;
-    
-    background-color: #fef;
+    width: 300px;
 }
 
-#tt-description, #tt-due-date {
+#tt-name {
+    width: 150px;
+}
+
+#tt-status {
+    width: 100px;
+}
+
+#tt-desc-due {
     display: none;
-    width: fit-content;
+    /* display: block; */
+
+    width: 280px;
+
+    padding: 5px;
+    margin: 5px;
+}
+
+#hideExt {
+    display: none;
 }

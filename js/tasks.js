@@ -123,3 +123,16 @@ $(function() {
         return false;
     });
 });
+
+// show/hide task desc & due date
+function showExt(id) {
+    $("#"+id+" #showExt").css("display", "none");
+    $("#"+id+" #hideExt").css("display", "block");
+    $("#"+id+" #tt-desc-due").css("display","block");
+}
+
+function hideExt(id) {
+    $("#"+id+" #showExt").css("display", "block");
+    $("#"+id+" #hideExt").css("display", "none");
+    $("#"+id+" #tt-desc-due").css("display","none");
+}

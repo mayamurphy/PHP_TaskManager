@@ -17,6 +17,7 @@
                     <button id="closeAddTaskForm">Cancel</button>
                 </form>
 
+                <!-- edit task form -->
                 <form id="editTaskForm">
                     <input type="hidden" id="user-id" value="<?php echo $_SESSION['user_id']?>">
                     <input type="hidden" id="edit-task-id" name="edit-task-id">
@@ -32,8 +33,13 @@
                         <option value="In Progress">In Progress</option>
                         <option value="Completed">Completed</option>
                     </select>
-                    <button type="submit" id="submitEditTaskForm">Save Task</button>
-                    <button id="closeEditTaskForm">Cancel</button>
+
+                    <div id="buttons">
+                        <button type="submit" id="submitEditTaskForm">Save Task</button>
+                        <button id="deleteTask" onclick="deleteTask()">Delete Task</button>
+                        <button id="closeEditTaskForm">Cancel</button>
+                    </div>
+
                 </form>
 
                 <!-- display tasks -->
@@ -51,8 +57,10 @@
                                         . $line['task_description'] . "\",\""
                                         . $line['task_due_date'] . "\",\""
                                         . $line['task_status'] . "\")'>&#128393</button>".
-                            "</td><td id='tt-description'>" . htmlspecialchars($line['task_description']) .
-                            "</td><td id='tt-due-date'>" . date('m-d-Y',strtotime($line['task_due_date'])) . "</td></tr>";
+                            "<td><button id='showExt' onclick='showExt(\"". $line['task_id'] ."\")'>&#8595;</button>" .
+                            "<button id='hideExt' onclick='hideExt(\"". $line['task_id'] ."\")'>&#8593;</button></td>" .
+                            "</td><td id='tt-desc-due'><p>". htmlspecialchars($line['task_description']) .
+                            "</p><p>" . date('m-d-Y',strtotime($line['task_due_date'])) . "</p></td>";
                         }
                     ?>
                     </table>
