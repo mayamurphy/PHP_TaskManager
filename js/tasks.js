@@ -63,21 +63,26 @@ function openEditTaskForm(id, name, desc, due, status) {
 
     $("#edit-task-id").val(id);
     $("#edit-task-name").val(name);
+    $("#edit-task-name").css("border-color","#000");
     $("#edit-task-description").val(desc);
     $("#edit-task-due-date").val(due);
+    $("#edit-task-due-date").css("border-color","#000");
     $("#edit-task-status").val(status);
-
+    $("#edit-task-status").css("border-color","#000");
+    
     $("#tasks-table").css("display","none");
     $("#openAddTaskForm").css("display","none");
 }
 
-function closeEditTaskForm() {
-    $("#editTaskForm").css("display","none");
-    $("#tasks-table").css("display","table");
-    $("#tasks-table tr").css("display","block");
-    $("#editTaskForm")[0].reset();
-    $("#openAddTaskForm").css("display","inline");
-}
+$(function() {
+    $("#closeEditTaskForm").click(function() {
+        $("#editTaskForm").css("display","none");
+        $("#tasks-table").css("display","table");
+        $("#tasks-table tr").css("display","block");
+        $("#editTaskForm")[0].reset();
+        $("#openAddTaskForm").css("display","inline");
+    });
+});
 
 // AJAX for editTaskForm
 $(function() {
