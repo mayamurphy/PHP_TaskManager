@@ -37,7 +37,7 @@
         <hr>
         <div class="content-container">
             <div id="progress-bar-container">
-                Progress bar
+                Today's Progress - <span id="progress-percent"><?php echo $_SESSION['todays_progress'] ?></span>%
                 <div id="progress-bar">
                     <div id="progress"></div>
                 </div>

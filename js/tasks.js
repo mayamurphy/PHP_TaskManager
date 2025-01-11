@@ -135,6 +135,15 @@ $(function() {
                 if (status) {
                     $("#"+id+" #tt-status").html(status);
                 }
+
+                if ("Completed" === status) {       // update progress bar
+                    var perc = parseInt(document.getElementById("progress-percent").innerHTML, 10)+1;   // get current progress
+                    var width = Math.ceil(perc / 5) * 5;        // round to nearest 5%
+                    if (width > 100) { width = 100; }           // don't allow progress bar to exceed 100%
+                    $("#progress-percent").html(perc);          // update percent
+                    $("#progress").css("width", width+"%");     // update width of progress bar
+                }
+
                 closeEditTaskForm();
             },
             error: function () {

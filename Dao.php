@@ -32,6 +32,7 @@
                             task_due_date DATE NOT NULL,
                             task_status VARCHAR(12) NOT NULL,
                             task_date_added DATETIME,
+                            task_completed_date DATETIME,
                             FOREIGN KEY (user_id) REFERENCES users(user_id));";
             $q = $conn->prepare($tasks_table);
             $q->execute();
@@ -113,21 +114,43 @@
         /* edit task */
         public function editTask($task_id, $user_id, $name, $description, $due_date, $status) {
             $conn = $this->getConnection();
-            $saveQuery = "UPDATE tasks
+            if ("Completed" === $status) {
+                $completed_date = date('Y-m-d');
+                $saveQuery = "UPDATE tasks
+                SET task_name = :task_name,
+                    task_description = :task_description,
+                    task_due_date = :task_due_date,
+                    task_status = :task_status,
+                    task_completed_date = :task_completed_date
+                WHERE task_id = :task_id AND user_id = :user_id;";
+                $q = $conn->prepare($saveQuery);
+                $q->bindParam(":task_id", $task_id);
+                $q->bindParam(":user_id", $user_id);
+                $q->bindParam(":task_name", $name);
+                $q->bindParam(":task_description", $description);
+                $q->bindParam(":task_due_date", $due_date);
+                $q->bindParam(":task_status", $status);
+                $q->bindParam(":task_completed_date", $completed_date);
+                $q->execute();
+                $this->logger->LogInfo("editTask: [{$task_id}], [{$user_id}], [{$name}], [{$description}], [{$due_date}], [{$status}], [" . date('Y-m-d H:i:s') . "], [{$completed_date}]");
+            }
+            else {
+                $saveQuery = "UPDATE tasks
                             SET task_name = :task_name,
                                 task_description = :task_description,
                                 task_due_date = :task_due_date,
                                 task_status = :task_status
                             WHERE task_id = :task_id AND user_id = :user_id;";
-            $q = $conn->prepare($saveQuery);
-            $q->bindParam(":task_id", $task_id);
-            $q->bindParam(":user_id", $user_id);
-            $q->bindParam(":task_name", $name);
-            $q->bindParam(":task_description", $description);
-            $q->bindParam(":task_due_date", $due_date);
-            $q->bindParam(":task_status", $status);
-            $q->execute();
-            $this->logger->LogInfo("editTask: [{$task_id}], [{$user_id}], [{$name}], [{$description}], [{$due_date}], [{$status}], [" . date('Y-m-d H:i:s') . "]");
+                $q = $conn->prepare($saveQuery);
+                $q->bindParam(":task_id", $task_id);
+                $q->bindParam(":user_id", $user_id);
+                $q->bindParam(":task_name", $name);
+                $q->bindParam(":task_description", $description);
+                $q->bindParam(":task_due_date", $due_date);
+                $q->bindParam(":task_status", $status);
+                $q->execute();
+                $this->logger->LogInfo("editTask: [{$task_id}], [{$user_id}], [{$name}], [{$description}], [{$due_date}], [{$status}], [" . date('Y-m-d H:i:s') . "]");
+            }    
         }
 
         /* valid task */
@@ -145,5 +168,11 @@
         public function getAllTasks($user_id) {
             $conn = $this->getConnection();
             return $conn->query("SELECT * FROM tasks WHERE user_id = '{$user_id}'")->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public function getTodaysProgress($user_id) {
+            $conn = $this->getConnection();
+            $today = date('Y-m-d');
+            return $conn->query("SELECT COUNT(*) FROM tasks WHERE user_id = '{$user_id}' AND task_completed_date = '{$today}';")->fetchAll(PDO::FETCH_COLUMN);
         }
     }
