@@ -14,12 +14,11 @@
                     <label for="add-task-due-date">Task due date:</label>
                     <input type="date" id="add-task-due-date" name="add-task-due-date" value="<?php echo date('Y-m-d')?>">
                     <button type="submit" id="submitAddTaskForm">Add Task</button>
-                    <button id="closeAddTaskForm">Cancel</button>
+                    <button id="closeAddTaskForm" onclick="closeAddTaskForm()">Cancel</button>
                 </form>
 
                 <!-- edit task form -->
                 <form id="editTaskForm">
-                    <input type="hidden" id="user-id" value="<?php echo $_SESSION['user_id']?>">
                     <input type="hidden" id="edit-task-id" name="edit-task-id">
                     <label for="edit-task-name">Task Name:</label>
                     <input type="text" id="edit-task-name" name="edit-task-name">
@@ -37,7 +36,7 @@
                     <div id="buttons">
                         <button type="submit" id="submitEditTaskForm">Save Task</button>
                         <button id="deleteTask" onclick="deleteTask()">Delete Task</button>
-                        <button id="closeEditTaskForm">Cancel</button>
+                        <button id="closeEditTaskForm" onclick="closeEditTaskForm()">Cancel</button>
                     </div>
 
                 </form>

@@ -7,16 +7,14 @@ function openAddTaskForm() {
     $("#closeAddTaskForm").css("display","inline");
 };
 
-$(function() {
-    $("#closeAddTaskForm").click(function() {
-        $("#addTaskForm").css("display","none");
-        $("#addTaskForm")[0].reset();
-        $("#addTaskForm input").css("border-color","#000");
-        $("#openAddTaskForm").css("display","inline");
-        $("#closeAddTaskForm").css("display","none");
-        $("#display-tasks").css("display","block");
-    });
-});
+function closeAddTaskForm() {
+    $("#addTaskForm").css("display","none");
+    $("#addTaskForm")[0].reset();
+    $("#addTaskForm input").css("border-color","#000");
+    $("#openAddTaskForm").css("display","inline");
+    $("#closeAddTaskForm").css("display","none");
+    $("#display-tasks").css("display","block");
+}
 
 // AJAX for AddTaskForm
 $(function() {
@@ -74,24 +72,29 @@ function openEditTaskForm(id, name, desc, due, status) {
     $("#openAddTaskForm").css("display","none");
 }
 
-$(function() {
-    $("#closeEditTaskForm").click(function() {
-        $("#editTaskForm").css("display","none");
-        $("#tasks-table").css("display","table");
-        $("#tasks-table tr").css("display","block");
-        $("#editTaskForm")[0].reset();
-        $("#openAddTaskForm").css("display","inline");
-    });
-});
+function closeEditTaskForm() {
+    $("#editTaskForm").css("display","none");
+    $("#tasks-table").css("display","table");
+    $("#tasks-table tr").css("display","block");
+    $("#editTaskForm")[0].reset();
+    $("#openAddTaskForm").css("display","inline");
+}
 
 // AJAX for editTaskForm
 $(function() {
     $("#editTaskForm").submit(function() {
         var values = $("#editTaskForm").serialize();
 
+        var id = document.getElementById("edit-task-id").value;
         var name = document.getElementById("edit-task-name").value;
+        var desc = document.getElementById("edit-task-description").value;
         var due_date = document.getElementById("edit-task-due-date").value;
         var status = document.getElementById("edit-task-status").value;
+
+        if (!id) {
+            alert("There was an error editing your task.");
+            return false;
+        }
 
         if ("" === name) {
             $("#edit-task-name").css("border-color","#F00");
@@ -119,7 +122,18 @@ $(function() {
             url: "handlers/edit_task_handler.php",
             data: values,
             success: function() {
-                window.location.reload();
+                if (name) {
+                    $("#"+id+" #tt-name").html(name);
+                }
+
+                if (desc || due_date) {
+                    $("#"+id+" #tt-desc-due").html("<p>"+desc+"</p><p>"+due_date+"</p>");
+                }
+
+                if (status) {
+                    $("#"+id+" #tt-status").html(status);
+                }
+                closeEditTaskForm();
             },
             error: function () {
                 alert("Failed to edit task :(");
