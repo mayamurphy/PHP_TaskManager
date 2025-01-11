@@ -10,3 +10,7 @@ This project reflects my knowledge of full stack development (usage of HTML, CSS
 This web app runs locally using WAMP server (https://wampserver.aviatechno.net/).
 
 To host on a server, Dao.php must be updated to reflect this change.
+
+## Run:
+1. Start/Run WAMP server 
+2. Open a web browser and navigate to: `localhost/TaskManager`
