@@ -14,7 +14,7 @@
                     <label for="add-task-due-date">Task due date:</label>
                     <input type="date" id="add-task-due-date" name="add-task-due-date" value="<?php echo date('Y-m-d')?>">
                     <button type="submit" id="submitAddTaskForm">Add Task</button>
-                    <button id="closeAddTaskForm" onclick="closeAddTaskForm()">Cancel</button>
+                    <button id="closeAddTaskForm">Cancel</button>
                 </form>
 
                 <!-- edit task form -->
