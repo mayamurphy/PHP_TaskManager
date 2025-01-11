@@ -67,6 +67,7 @@ function openEditTaskForm(id, name, desc, due, status) {
     $("#edit-task-description").val(desc);
     $("#edit-task-due-date").val(due);
     $("#edit-task-due-date").css("border-color","#000");
+    $("#edit-old-task-status").val(status);
     $("#edit-task-status").val(status);
     $("#edit-task-status").css("border-color","#000");
     
@@ -91,6 +92,7 @@ $(function() {
         var name = document.getElementById("edit-task-name").value;
         var desc = document.getElementById("edit-task-description").value;
         var due_date = document.getElementById("edit-task-due-date").value;
+        var old_status = document.getElementById("edit-old-task-status").value;
         var status = document.getElementById("edit-task-status").value;
 
         if (!id) {
@@ -136,8 +138,15 @@ $(function() {
                     $("#"+id+" #tt-status").html(status);
                 }
 
-                if ("Completed" === status) {       // update progress bar
+                if ("Completed" === status && "Completed" !== old_status) {       // update progress bar
                     var perc = parseInt(document.getElementById("progress-percent").innerHTML, 10)+1;   // get current progress
+                    var width = Math.ceil(perc / 5) * 5;        // round to nearest 5%
+                    if (width > 100) { width = 100; }           // don't allow progress bar to exceed 100%
+                    $("#progress-percent").html(perc);          // update percent
+                    $("#progress").css("width", width+"%");     // update width of progress bar
+                }
+                else if ("Completed" !== status && "Completed" === old_status) {
+                    var perc = parseInt(document.getElementById("progress-percent").innerHTML, 10)-1;   // get current progress
                     var width = Math.ceil(perc / 5) * 5;        // round to nearest 5%
                     if (width > 100) { width = 100; }           // don't allow progress bar to exceed 100%
                     $("#progress-percent").html(perc);          // update percent

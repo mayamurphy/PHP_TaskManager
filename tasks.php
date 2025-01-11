@@ -26,6 +26,7 @@
                     <textarea rows="10" id="edit-task-description" name="edit-task-description"></textarea>
                     <label for="edit-task-due-date">Task due date:</label>
                     <input type="date" id="edit-task-due-date" name="edit-task-due-date" value="<?php echo date('Y-m-d')?>">
+                    <input type="hidden" id="edit-old-task-status" name="edit-old-task-status">
                     <label for="edit-task-status">Task Status:</label>
                     <select id="edit-task-status" name="edit-task-status">
                         <option value="Not Started">Not Started</option>

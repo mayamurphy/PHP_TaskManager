@@ -112,7 +112,7 @@
         }
 
         /* edit task */
-        public function editTask($task_id, $user_id, $name, $description, $due_date, $status) {
+        public function editTask($task_id, $user_id, $name, $description, $due_date, $status, $old_status) {
             $conn = $this->getConnection();
             if ("Completed" === $status) {
                 $completed_date = date('Y-m-d');
@@ -139,7 +139,8 @@
                             SET task_name = :task_name,
                                 task_description = :task_description,
                                 task_due_date = :task_due_date,
-                                task_status = :task_status
+                                task_status = :task_status,
+                                task_completed_date = NULL
                             WHERE task_id = :task_id AND user_id = :user_id;";
                 $q = $conn->prepare($saveQuery);
                 $q->bindParam(":task_id", $task_id);
