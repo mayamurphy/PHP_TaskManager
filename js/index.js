@@ -1,14 +1,14 @@
 // move slider / switch form
 $(document).ready(function() {
     $("#signup-page").click(function() {
-        $("#signup-page").css("background-color","#FAF");
+        $("#signup-page").css("background-color","#7E9971");
         $("#login-page").css("background-color","transparent");
         $(".signup-form-container").css("display","block");
         $(".login-form-container").css("display","none");
     });
 
     $("#login-page").click(function() {
-        $("#login-page").css("background-color","#FAF");
+        $("#login-page").css("background-color","#7E9971");
         $("#signup-page").css("background-color","transparent");
         $(".login-form-container").css("display","block");
         $(".signup-form-container").css("display","none");
@@ -18,7 +18,7 @@ $(document).ready(function() {
 // switch to signup page if username is taken
 $(function() {
     if (0 < $("#error-messages-un-taken").length) {
-        $("#signup-page").css("background-color","#FAF");
+        $("#signup-page").css("background-color","#7E9971");
         $("#login-page").css("background-color","transparent");
         $(".signup-form-container").css("display","block");
         $(".login-form-container").css("display","none");
@@ -26,7 +26,7 @@ $(function() {
     }
 
     if (0 < $("#error-messages-invalid-login").length) {
-        $("#login-page").css("background-color","#FAF");
+        $("#login-page").css("background-color","#7E9971");
         $("#signup-page").css("background-color","transparent");
         $(".login-form-container").css("display","block");
         $(".signup-form-container").css("display","none");

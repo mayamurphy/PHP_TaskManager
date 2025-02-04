@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<meta charset="UTF-8">
 <?php 
     session_start();
     if (isset($_SESSION["authenticated"]) && $_SESSION["authenticated"]) {}
@@ -17,6 +16,8 @@
     <head>
         <link rel="stylesheet" href="css/header.css">
         <link rel="stylesheet" href="css/tasks.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script type="text/javascript" src="js\header.js"></script>
         <script type="text/javascript" src="js\tasks.js"></script>
@@ -25,7 +26,7 @@
     <body>
         <div class="header">
             <div id="menu-container">
-                menu
+                <span onclick="toggleMenu()">menu</span>
                 <div id="menu">
                     <div id="username"><?php echo htmlspecialchars($_SESSION['username'])?></div>
                     <div class="dropdown-content">

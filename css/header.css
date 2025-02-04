@@ -1,12 +1,16 @@
 html {
     margin: auto;
+    height: 100%;
+
+    background-image: linear-gradient(45deg, #3A5A40, #7E9971);
 }
 
 body {
+    height: auto;
     width: 300px;
+    
     margin: auto;
     margin-top: 20px;
-
 
     /* background-color: red; */
 }
@@ -19,7 +23,7 @@ body {
 
     margin:auto;
 
-    background-color: white;
+    /* background-color: white; */
 }
 
 #menu {
@@ -33,6 +37,7 @@ body {
 }
 
 .content-container {
+    height: 75%;
     text-align: center;
 }
 
