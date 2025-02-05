@@ -37,15 +37,17 @@ table {
     display: inline-flex;
     height: 750px;
 
-    overflow-y: scroll;
+    background-color: #DAD7CD;
+
+    overflow-y: auto;
 
     margin-top: 5px;
     border-color: #000;
     border: 1px solid;
     border-collapse: collapse;
 
-    scrollbar-color: #f1f1f1 white;
-    scrollbar-width: thin;
+    /* scrollbar-color: #f1f1f1 white; */
+    scrollbar-width: none;
 }
 
 table td {

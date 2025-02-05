@@ -44,9 +44,9 @@
 
                 <!-- display tasks -->
                 <div id="display-tasks">
-                    <table id="tasks-table">
                     <?php
                         $lines = $dao->getAllTasks($_SESSION['user_id']);
+                        if ($lines) { echo "<table id='tasks-table'>"; }
                         foreach ($lines as $line) {
                             echo "<tr id=" . $line['task_id'] .
                             "><td id='tt-name'>" . htmlspecialchars($line['task_name']) .
@@ -62,8 +62,8 @@
                             "</td><td id='tt-desc-due'><p>". htmlspecialchars($line['task_description']) .
                             "</p><p>" . date('m-d-Y',strtotime($line['task_due_date'])) . "</p></td>";
                         }
+                        if ($lines) { echo "</table>"; }
                     ?>
-                    </table>
                 </div>
             </div>
         </div>
