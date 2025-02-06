@@ -10,7 +10,8 @@
     require_once "Dao.php";
     $dao = new Dao();
     
-    $_SESSION['todays_progress'] = $dao->getTodaysProgress($_SESSION['user_id'])[0];
+    $_SESSION['tasks_completed_today'] = $dao->getTasksCompletedToday($_SESSION['user_id'])[0];
+    $_SESSION['tasks_due_today'] = $dao->getTasksDueToday($_SESSION['user_id'])[0];
 ?>
 <html>
     <head>
@@ -40,7 +41,10 @@
         <hr>
         <div class="content-container">
             <div id="progress-bar-container">
-                Today's Progress - <span id="progress-percent"><?php echo $_SESSION['todays_progress'] ?></span>%
+                Today's Progress - 
+                    <span id="progress-count-completed"><?php echo $_SESSION["tasks_completed_today"] ?></span> /
+                    <span id="progress-count-total"><?php echo $_SESSION["tasks_due_today"]?></span>
+                    - <span id="progress-percent"><?php echo 0 != $_SESSION["tasks_due_today"] ? 100 * $_SESSION["tasks_completed_today"]/$_SESSION["tasks_due_today"] : 0 ?></span>%
                 <div id="progress-bar">
                     <div id="progress"></div>
                 </div>

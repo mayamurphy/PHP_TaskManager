@@ -20,10 +20,12 @@
                 <!-- edit task form -->
                 <form id="editTaskForm">
                     <input type="hidden" id="edit-task-id" name="edit-task-id">
+                    <input type="hidden" id="edit-task-curr-date" name="edit-task-curr-date" value="<?php echo date('Y-m-d')?>">
                     <label for="edit-task-name">Task Name:</label>
                     <input type="text" id="edit-task-name" name="edit-task-name">
                     <label for="edit-task-description">Task Description:</label>
                     <textarea rows="10" id="edit-task-description" name="edit-task-description"></textarea>
+                    <input type="hidden" id="edit-old-task-due-date" name="edit-old-task-due-date">
                     <label for="edit-task-due-date">Task due date:</label>
                     <input type="date" id="edit-task-due-date" name="edit-task-due-date" value="<?php echo date('Y-m-d')?>">
                     <input type="hidden" id="edit-old-task-status" name="edit-old-task-status">
@@ -67,5 +69,4 @@
                 </div>
             </div>
         </div>
-    </body>
-</html>
+<?php require_once 'footer.php'?>

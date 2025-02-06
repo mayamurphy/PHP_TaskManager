@@ -171,9 +171,15 @@
             return $conn->query("SELECT * FROM tasks WHERE user_id = '{$user_id}'")->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        public function getTodaysProgress($user_id) {
+        public function getTasksCompletedToday($user_id) {
             $conn = $this->getConnection();
             $today = date('Y-m-d');
             return $conn->query("SELECT COUNT(*) FROM tasks WHERE user_id = '{$user_id}' AND task_completed_date = '{$today}';")->fetchAll(PDO::FETCH_COLUMN);
+        }
+
+        public function getTasksDueToday($user_id) {
+            $conn = $this->getConnection();
+            $today = date('Y-m-d');
+            return $conn->query("SELECT COUNT(*) FROM tasks WHERE user_id = '{$user_id}' AND task_due_date = '{$today}';")->fetchAll(PDO::FETCH_COLUMN);
         }
     }

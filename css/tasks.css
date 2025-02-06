@@ -96,3 +96,9 @@ table tr {
         border-radius: 10px;
     }
 }
+
+@media screen and (min-height: 667px) {
+    table {
+        height: 450px;
+    }
+}

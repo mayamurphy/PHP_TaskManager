@@ -65,21 +65,21 @@ function openEditTaskForm(id, name, desc, due, status) {
     $("#edit-task-name").val(name);
     $("#edit-task-name").css("border-color","#000");
     $("#edit-task-description").val(desc);
+    $("#edit-old-task-due-date").val(due);
     $("#edit-task-due-date").val(due);
     $("#edit-task-due-date").css("border-color","#000");
     $("#edit-old-task-status").val(status);
     $("#edit-task-status").val(status);
     $("#edit-task-status").css("border-color","#000");
     
-    $("#tasks-table").css("display","none");
+    $("#display-tasks").css("display","none");
     $("#openAddTaskForm").css("display","none");
 }
 
 function closeEditTaskForm() {
     $("#editTaskForm").css("display","none");
-    $("#tasks-table").css("display","table");
-    $("#tasks-table tr").css("display","block");
     $("#editTaskForm")[0].reset();
+    $("#display-tasks").css("display","block");
     $("#openAddTaskForm").css("display","inline");
 }
 
@@ -89,8 +89,10 @@ $(function() {
         var values = $("#editTaskForm").serialize();
 
         var id = document.getElementById("edit-task-id").value;
+        var curr_date = document.getElementById("edit-task-curr-date").value;
         var name = document.getElementById("edit-task-name").value;
         var desc = document.getElementById("edit-task-description").value;
+        var old_due_date = document.getElementById("edit-old-task-due-date").value;
         var due_date = document.getElementById("edit-task-due-date").value;
         var old_status = document.getElementById("edit-old-task-status").value;
         var status = document.getElementById("edit-task-status").value;
@@ -138,17 +140,37 @@ $(function() {
                     $("#"+id+" #tt-status").html(status);
                 }
 
+                /* update progress count & bar */
+                var tasksCompleted = parseInt(document.getElementById("progress-count-completed").innerHTML, 10);
+                var tasksDue = parseInt(document.getElementById("progress-count-total").innerHTML, 10);
+
+                if (old_due_date !== due_date && due_date === curr_date) {
+                    tasksDue++;
+                    $("#progress-count-total").html(tasksDue);
+                }
+                else if (old_due_date !== due_date && old_due_date === curr_date) {
+                    tasksDue--;
+                    $("#progress-count-total").html(tasksDue);
+                }
+
                 if ("Completed" === status && "Completed" !== old_status) {       // update progress bar
-                    var perc = parseInt(document.getElementById("progress-percent").innerHTML, 10)+1;   // get current progress
+                    tasksCompleted++;   // increment progress
+                    
+                    var perc = (tasksDue != 0) ? 100 * tasksCompleted/tasksDue : 100 + tasksCompleted;
                     var width = Math.ceil(perc / 5) * 5;        // round to nearest 5%
                     if (width > 100) { width = 100; }           // don't allow progress bar to exceed 100%
+                    $("#progress-count-completed").html(tasksCompleted);    // update count for tasks completed today
                     $("#progress-percent").html(perc);          // update percent
                     $("#progress").css("width", width+"%");     // update width of progress bar
                 }
                 else if ("Completed" !== status && "Completed" === old_status) {
-                    var perc = parseInt(document.getElementById("progress-percent").innerHTML, 10)-1;   // get current progress
+                    tasksCompleted--;   // decrement progress
+
+                    var perc = (tasksDue != 0) ? 100 * tasksCompleted/tasksDue : 100 + tasksCompleted;
                     var width = Math.ceil(perc / 5) * 5;        // round to nearest 5%
+                    if (width < 0) { width = 0; }               // don't allow progress bar to suceed 0%
                     if (width > 100) { width = 100; }           // don't allow progress bar to exceed 100%
+                    $("#progress-count-completed").html(tasksCompleted);    // update count for tasks completed today
                     $("#progress-percent").html(perc);          // update percent
                     $("#progress").css("width", width+"%");     // update width of progress bar
                 }

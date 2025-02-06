@@ -62,3 +62,9 @@ body {
     background-color: #0F0;
     border-radius: 100px;
 }
+
+#footer {
+    color: #DAD7CD;
+    font-size: smaller;
+    text-align: center;
+}
