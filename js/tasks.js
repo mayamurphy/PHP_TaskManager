@@ -7,20 +7,10 @@ function openAddTaskForm() {
     $("#closeAddTaskForm").css("display","inline");
 };
 
-$(function() {
-    $("#closeAddTaskForm").click(function() {
-        $("#addTaskForm").css("display","none");
-        $("#addTaskForm")[0].reset();
-        $("#addTaskForm input").css("border-color","#000");
-        $("#openAddTaskForm").css("display","inline");
-        $("#closeAddTaskForm").css("display","none");
-        $("#display-tasks").css("display","block");
-    });
-});
-
 // AJAX for AddTaskForm
 $(function() {
     $("#addTaskForm").submit(function() {
+        alert("add")
         var values = $("#addTaskForm").serialize();
 
         var name = document.getElementById("add-task-name").value;
@@ -55,10 +45,20 @@ $(function() {
         });
         return false;
     });
+
+    // cancel/close addTaskForm
+    $("#closeAddTaskForm").click(function() {
+        $("#addTaskForm").css("display","none");
+        $("#addTaskForm")[0].reset();
+        $("#addTaskForm input").css("border-color","#000");
+        $("#openAddTaskForm").css("display","inline");
+        $("#closeAddTaskForm").css("display","none");
+        $("#display-tasks").css("display","block");
+    });
 });
 
 // open/close editTaskForm
-function openEditTaskForm(id, name, desc, due, status) {
+function openEditTaskForm(id, name, desc, due, status, completedDate) {
     $("#editTaskForm").css("display","block");
 
     $("#edit-task-id").val(id);
@@ -69,6 +69,7 @@ function openEditTaskForm(id, name, desc, due, status) {
     $("#edit-task-due-date").val(due);
     $("#edit-task-due-date").css("border-color","#000");
     $("#edit-old-task-status").val(status);
+    $("edit-task-completed-date").val(completedDate);
     $("#edit-task-status").val(status);
     $("#edit-task-status").css("border-color","#000");
     
@@ -96,6 +97,7 @@ $(function() {
         var due_date = document.getElementById("edit-task-due-date").value;
         var old_status = document.getElementById("edit-old-task-status").value;
         var status = document.getElementById("edit-task-status").value;
+        var completedDate = document.getElementById("edit-task-completed-date").value;
 
         if (!id) {
             alert("There was an error editing your task.");
@@ -146,34 +148,19 @@ $(function() {
 
                 if (old_due_date !== due_date && due_date === curr_date) {
                     tasksDue++;
-                    $("#progress-count-total").html(tasksDue);
                 }
                 else if (old_due_date !== due_date && old_due_date === curr_date) {
                     tasksDue--;
-                    $("#progress-count-total").html(tasksDue);
                 }
 
-                if ("Completed" === status && "Completed" !== old_status) {       // update progress bar
+                if ("Completed" === status && "Completed" !== old_status) {
                     tasksCompleted++;   // increment progress
-                    
-                    var perc = (tasksDue != 0) ? 100 * tasksCompleted/tasksDue : 100 + tasksCompleted;
-                    var width = Math.ceil(perc / 5) * 5;        // round to nearest 5%
-                    if (width > 100) { width = 100; }           // don't allow progress bar to exceed 100%
-                    $("#progress-count-completed").html(tasksCompleted);    // update count for tasks completed today
-                    $("#progress-percent").html(perc);          // update percent
-                    $("#progress").css("width", width+"%");     // update width of progress bar
                 }
-                else if ("Completed" !== status && "Completed" === old_status) {
+                if ("Completed" !== status && "Completed" === old_status) {
                     tasksCompleted--;   // decrement progress
-
-                    var perc = (tasksDue != 0) ? 100 * tasksCompleted/tasksDue : 100 + tasksCompleted;
-                    var width = Math.ceil(perc / 5) * 5;        // round to nearest 5%
-                    if (width < 0) { width = 0; }               // don't allow progress bar to suceed 0%
-                    if (width > 100) { width = 100; }           // don't allow progress bar to exceed 100%
-                    $("#progress-count-completed").html(tasksCompleted);    // update count for tasks completed today
-                    $("#progress-percent").html(perc);          // update percent
-                    $("#progress").css("width", width+"%");     // update width of progress bar
                 }
+                
+                updateProgressBar(tasksCompleted, tasksDue);
 
                 closeEditTaskForm();
             },
@@ -183,7 +170,68 @@ $(function() {
         });
         return false;
     });
+
+    $("#deleteTask").click(function() {
+        var values = $("#editTaskForm").serialize();
+
+        var id = document.getElementById("edit-task-id").value;
+        var curr_date = document.getElementById("edit-task-curr-date").value;
+        var old_due_date = document.getElementById("edit-old-task-due-date").value;
+        var completedDate = document.getElementById("edit-task-completed-date").value;
+
+        if (!id) {
+            alert("There was an error deleting your task.");
+            return false;
+        }
+
+        $.ajax ({
+            type: "POST",
+            url: "handlers/delete_task_handler.php",
+            data: values,
+            success: function () {
+                // remove task from table
+                $("tr #"+id).css("display","none");
+                
+                /* update progress count & bar */
+                var tasksCompleted = parseInt(document.getElementById("progress-count-completed").innerHTML, 10);
+                var tasksDue = parseInt(document.getElementById("progress-count-total").innerHTML, 10);
+
+                if (old_due_date === curr_date) {
+                    // decrement tasksDue
+                    tasksDue--;
+                }
+                if (completedDate === curr_date) {
+                    // decrement tasksCompleted
+                    tasksCompleted--;
+                }
+
+                updateProgressBar(tasksCompleted, tasksDue);
+
+                closeEditTaskForm();
+            },
+            error: function () {
+                alert("Failed to delete task :(");
+            }
+        });
+        return false;
+    });
+
+    $("#closeEditTaskForm").click(function() {
+        closeEditTaskForm();
+    });
 });
+
+function updateProgressBar(tasksCompleted, tasksDue) {
+    $("#progress-count-total").html(tasksDue);
+
+    var perc = (tasksDue != 0) ? 100 * tasksCompleted/tasksDue : 0;
+    var width = Math.ceil(perc / 5) * 5;        // round to nearest 5%
+    if (width > 100) { width = 100; }           // don't allow progress bar to exceed 100%
+    if (width < 0) { width = 0; }               // don't allow progress bar to be less than 0
+    $("#progress-count-completed").html(tasksCompleted);    // update count for tasks completed today
+    $("#progress-percent").html(perc);          // update percent
+    $("#progress").css("width", width+"%");     // update width of progress bar
+}
 
 // show/hide task desc & due date
 function showExt(id) {

@@ -162,8 +162,16 @@
         }
 
         /* delete task */
-        public function deleteTask($task_id) {
-
+        public function deleteTask($task_id, $user_id) {
+            $conn = $this->getConnection();
+            $saveQuery = "DELETE FROM tasks
+                WHERE task_id = :task_id AND user_id = :user_id;";
+            $q = $conn->prepare($saveQuery);
+            $q->bindParam(":task_id", $task_id);
+            $q->bindParam(":user_id", $user_id);
+            $q->execute();
+            
+            $this->logger->LogInfo("- deleteTask: [{$task_id}], [{$user_id}]");
         }
 
         public function getAllTasks($user_id) {

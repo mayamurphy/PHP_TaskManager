@@ -29,6 +29,7 @@
                     <label for="edit-task-due-date">Task due date:</label>
                     <input type="date" id="edit-task-due-date" name="edit-task-due-date" value="<?php echo date('Y-m-d')?>">
                     <input type="hidden" id="edit-old-task-status" name="edit-old-task-status">
+                    <input type="hidden" id="edit-task-completed-date" name="edit-task-completed-date">
                     <label for="edit-task-status">Task Status:</label>
                     <select id="edit-task-status" name="edit-task-status">
                         <option value="Not Started">Not Started</option>
@@ -38,10 +39,9 @@
 
                     <div id="buttons">
                         <button type="submit" id="submitEditTaskForm">Save Task</button>
-                        <button id="deleteTask" onclick="deleteTask()">Delete Task</button>
-                        <button id="closeEditTaskForm" onclick="closeEditTaskForm()">Cancel</button>
+                        <button type="button" id="deleteTask">Delete Task</button>
+                        <button type="button" id="closeEditTaskForm">Cancel</button>
                     </div>
-
                 </form>
 
                 <!-- display tasks -->
@@ -58,7 +58,8 @@
                                         . $line['task_name'] . "`,`"
                                         . $line['task_description'] . "`,`"
                                         . $line['task_due_date'] . "`,`"
-                                        . $line['task_status'] . "`)'>&#128393</button>".
+                                        . $line['task_status'] . "`,`"
+                                        . $line['task_completed_date'] . "`)'>&#128393</button>".
                             "<td><button id='showExt' onclick='showExt(`". $line['task_id'] ."`)'>&#8595;</button>" .
                             "<button id='hideExt' onclick='hideExt(`". $line['task_id'] ."`)'>&#8593;</button>" .
                             "</td><td id='tt-desc-due'><p>". htmlspecialchars($line['task_description']) .
