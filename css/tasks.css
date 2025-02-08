@@ -33,6 +33,12 @@
     margin-top: 10px;
 }
 
+#tasks-table {
+    max-height: calc(100dvh - 250px);
+    border-radius: 10px;
+    resize: vertical;
+}
+
 table {
     display: inline-flex;
     height: 750px;
@@ -81,24 +87,4 @@ table tr {
 
 #hideExt {
     display: none;
-}
-
-@media screen and (max-height: 1000px) {
-    #tasks-table {
-        max-height: 550px;
-        border-radius: 10px;
-    }
-}
-
-@media screen and (min-height: 1000px) {
-    #tasks-table {
-        max-height: 1500px;
-        border-radius: 10px;
-    }
-}
-
-@media screen and (min-height: 667px) {
-    table {
-        height: 450px;
-    }
 }
