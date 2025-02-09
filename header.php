@@ -31,8 +31,9 @@
                 <div id="menu">
                     <div id="username"><?php echo htmlspecialchars($_SESSION['username'])?></div>
                     <div class="dropdown-content">
+                        <a href="tasks.php">Tasks</a>
                         <a href="#">Profile</a>
-                        <a href="#">Settings</a>
+                        <a href="settings.php">Settings</a>
                         <a href="logout.php">Log out</a>
                     </div>
                 </div>
@@ -40,14 +41,4 @@
         </div>
         <hr>
         <div class="content-container">
-            <div id="progress-bar-container">
-                Today's Progress - 
-                    <span id="progress-count-completed"><?php echo $_SESSION["tasks_completed_today"] ?></span> /
-                    <span id="progress-count-total"><?php echo $_SESSION["tasks_due_today"]?></span>
-                    - <span id="progress-percent">
-                        0</span>%
-                <div id="progress-bar">
-                    <div id="progress"></div>
-                </div>
-            </div>
-            <hr>
+            
