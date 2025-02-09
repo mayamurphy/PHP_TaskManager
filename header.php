@@ -24,7 +24,7 @@
         <script type="text/javascript" src="js\tasks.js"></script>
     </head>
 
-    <body>
+    <body onload="updateProgressBar(<?php echo $_SESSION['tasks_completed_today'] .','. $_SESSION['tasks_due_today'] ?>)">
         <div class="header">
             <div id="menu-container">
                 <span onclick="toggleMenu()">menu</span>
@@ -44,7 +44,8 @@
                 Today's Progress - 
                     <span id="progress-count-completed"><?php echo $_SESSION["tasks_completed_today"] ?></span> /
                     <span id="progress-count-total"><?php echo $_SESSION["tasks_due_today"]?></span>
-                    - <span id="progress-percent"><?php echo 0 != $_SESSION["tasks_due_today"] ? 100 * $_SESSION["tasks_completed_today"]/$_SESSION["tasks_due_today"] : 0 ?></span>%
+                    - <span id="progress-percent">
+                        0</span>%
                 <div id="progress-bar">
                     <div id="progress"></div>
                 </div>

@@ -238,7 +238,14 @@ $(function() {
 function updateProgressBar(tasksCompleted, tasksDue) {
     $("#progress-count-total").html(tasksDue);
 
-    var perc = (tasksDue != 0) ? 100 * tasksCompleted/tasksDue : 0;
+    var perc = 0;
+    if (0 === tasksDue && tasksCompleted > 0) {
+        perc = 100 * tasksCompleted;
+    }
+    else if (0 !== tasksDue && tasksCompleted > 0) {
+        perc = 100 * tasksCompleted/tasksDue;
+    }
+
     var width = Math.ceil(perc / 5) * 5;        // round to nearest 5%
     if (width > 100) { width = 100; }           // don't allow progress bar to exceed 100%
     if (width < 0) { width = 0; }               // don't allow progress bar to be less than 0
