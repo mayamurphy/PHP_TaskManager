@@ -54,16 +54,15 @@
                             "><td id='tt-name'>" . htmlspecialchars($line['task_name']) .
                             "</td><td id='tt-status'>" . $line['task_status'] .
                             "</td><td><button id='editTaskButton' 
-                                    onclick='openEditTaskForm(`" . $line['task_id'] . "`,`"
-                                        . $line['task_name'] . "`,`"
-                                        . $line['task_description'] . "`,`"
-                                        . $line['task_due_date'] . "`,`"
-                                        . $line['task_status'] . "`,`"
-                                        . $line['task_completed_date'] . "`)'>&#128393</button>".
+                                    onclick='openEditTaskForm(`" . $line['task_id'] . "`)'>&#128393</button>".
                             "<td><button id='showExt' onclick='showExt(`". $line['task_id'] ."`)'>&#8595;</button>" .
                             "<button id='hideExt' onclick='hideExt(`". $line['task_id'] ."`)'>&#8593;</button>" .
-                            "</td><td id='tt-desc-due'><p>". htmlspecialchars($line['task_description']) .
-                            "</p><p>" . date('m-d-Y',strtotime($line['task_due_date'])) . "</p></td>";
+                            "</td><td id='tt-desc-due'><p id='tt-desc'>". htmlspecialchars($line['task_description']) .
+                            "</p><p id='tt-due'>Due: " . date('m-d-Y',strtotime($line['task_due_date'])) . 
+                            "</p><p id='tt-completed'>" . ($line['task_completed_date'] ? 
+                                                            "Completed: " . date('m-d-Y',strtotime($line['task_completed_date'])) 
+                                                            : "") . 
+                            "</p></td></tr>";
                         }
                         if ($lines) { echo "</table>"; }
                     ?>

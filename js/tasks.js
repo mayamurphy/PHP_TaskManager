@@ -58,7 +58,17 @@ $(function() {
 });
 
 // open/close editTaskForm
-function openEditTaskForm(id, name, desc, due, status, completedDate) {
+function openEditTaskForm(id) {
+    var name = $("tr#"+id+" td:nth-child(1)").text();
+    var desc = $("tr#"+id+" td:nth-child(5) p:nth-child(1)").text();
+    var dueString = $("tr#"+id+" td:nth-child(5) p:nth-child(2)").text();
+    var due = dueString.substring(
+                                dueString.lastIndexOf("-")+1,dueString.length)+"-"+                                // year
+                                dueString.substring(dueString.indexOf(" ")+1,dueString.indexOf("-"))+"-"+          // month
+                                dueString.substring(dueString.indexOf("-")+1,dueString.lastIndexOf("-"));           // day
+    var completedDate = $("tr#"+id+" td:nth-child(5) p:nth-child(3)").text();
+    var status = $("tr#"+id+" td:nth-child(2)").text();
+
     $("#editTaskForm").css("display","block");
 
     $("#edit-task-id").val(id);
@@ -69,7 +79,7 @@ function openEditTaskForm(id, name, desc, due, status, completedDate) {
     $("#edit-task-due-date").val(due);
     $("#edit-task-due-date").css("border-color","#000");
     $("#edit-old-task-status").val(status);
-    $("edit-task-completed-date").val(completedDate);
+    $("#edit-task-completed-date").val(completedDate);
     $("#edit-task-status").val(status);
     $("#edit-task-status").css("border-color","#000");
     
@@ -97,7 +107,6 @@ $(function() {
         var due_date = document.getElementById("edit-task-due-date").value;
         var old_status = document.getElementById("edit-old-task-status").value;
         var status = document.getElementById("edit-task-status").value;
-        var completedDate = document.getElementById("edit-task-completed-date").value;
 
         if (!id) {
             alert("There was an error editing your task.");
@@ -135,7 +144,12 @@ $(function() {
                 }
 
                 if (desc || due_date) {
-                    $("#"+id+" #tt-desc-due").html("<p>"+desc+"</p><p>"+due_date+"</p>");
+                    var due = 
+                        due_date.substring(due_date.indexOf("-")+1,due_date.lastIndexOf("-"))+"-"+  // month
+                        due_date.substring(due_date.lastIndexOf("-")+1,due_date.length)+"-"+        // day
+                        due_date.substring(0,due_date.indexOf("-"));                                // year
+
+                    $("#"+id+" #tt-desc-due").html("<p>"+desc+"</p><p>"+due+"</p>");
                 }
 
                 if (status) {
