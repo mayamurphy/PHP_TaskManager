@@ -24,6 +24,20 @@
             $q = $conn->prepare($users_table);
             $q->execute();
 
+            $security_questions_table = 
+                           "CREATE TABLE IF NOT EXISTS
+                            security_questions (security_question_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                            user_id INT NOT NULL,
+                            sqq1 VARCHAR(256) NOT NULL,
+                            sqa1 VARCHAR(256) NOT NULL,
+                            sqq2 VARCHAR(256) NOT NULL,
+                            sqa2 VARCHAR(256) NOT NULL,
+                            sqq3 VARCHAR(256) NOT NULL,
+                            sqa3 VARCHAR(256) NOT NULL,
+                            FOREIGN KEY (user_id) REFERENCES users(user_id));";
+            $q = $conn->prepare($security_questions_table);
+            $q->execute();
+
             $tasks_table = "CREATE TABLE IF NOT EXISTS
                             tasks (task_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                             user_id INT NOT NULL,
@@ -82,11 +96,94 @@
             $this->logger->LogInfo("addUser: [{$username}], [" . date('Y-m-d H:i:s') . "]");
         }
 
+        // user_id, sqq1, sqa1, sqq2, sqa2, sqq3, sqa3
+        /* add user security questions */
+        public function addUserSecurityQuestions($user_id, $sqq1, $sqa1, $sqq2, $sqa2, $sqq3, $sqa3) {
+            $conn = $this->getConnection();
+            $saveQuery = "INSERT INTO security_questions (user_id, sqq1, sqa1, sqq2, sqa2, sqq3, sqa3)
+                            VALUES (:user_id, :sqq1, :sqa1, :sqq2, :sqa2, :sqq3, :sqa3);";
+            $q = $conn->prepare($saveQuery);
+            $q->bindParam(":user_id", $user_id);
+            $q->bindParam(":sqq1", $sqq1);
+            $q->bindParam(":sqa1", $sqa1);
+            $q->bindParam(":sqq2", $sqq2);
+            $q->bindParam(":sqa2", $sqa2);
+            $q->bindParam(":sqq3", $sqq3);
+            $q->bindParam(":sqa3", $sqa3);
+            $q->execute();
+
+            $this->logger->LogInfo("addUserSecurityQuestions: [{$user_id}], [" . date('Y-m-d H:i:s') . "]");
+        }
+
+        /* update user security questions */
+        public function updateUserSecurityQuestions($user_id, $sqq1, $sqa1, $sqq2, $sqa2, $sqq3, $sqa3) {
+            $conn = $this->getConnection();
+            $saveQuery = 
+                       "UPDATE security_questions 
+                        SET sqq1 = :sqq1,
+                            sqa1 = :sqa1,
+                            sqq2 = :sqq2,
+                            sqa2 = :sqa2,
+                            sqq3 = :sqq3,
+                            sqa3 = :sqa3,
+                        WHERE user_id = :user_id;";
+            $q = $conn->prepare($saveQuery);
+            $q->bindParam(":user_id", $user_id);
+            $q->bindParam(":sqq1", $sqq1);
+            $q->bindParam(":sqa1", $sqa1);
+            $q->bindParam(":sqq2", $sqq2);
+            $q->bindParam(":sqa2", $sqa2);
+            $q->bindParam(":sqq3", $sqq3);
+            $q->bindParam(":sqa3", $sqa3);
+            $q->execute();
+
+            $this->logger->LogInfo("updateUserSecurityQuestions: [{$user_id}], [" . date('Y-m-d H:i:s') . "]");
+        }
+
+        /* update user password */
+        public function updateUserPassword($user_id, $old_password, $new_password) {
+            /* verify user id, password combo */
+            $conn = $this->getConnection();
+            $res = $conn->query("SELECT * FROM users WHERE user_id = '{$user_id}';")->fetchAll(PDO::FETCH_ASSOC);
+            if (password_verify($old_password, $res[0]['password'])) {
+                /* hash & salt new password */
+                $options = ['cost' => 10];
+                $new_password = password_hash($new_password, PASSWORD_BCRYPT, $options);
+    
+                /* replace old password with new password */
+                $saveQuery = "UPDATE users SET password = :new_password WHERE user_id = :user_id";
+                $q = $conn->prepare($saveQuery);
+                $q->bindParam(":user_id", $user_id);
+                $q->bindParam(":new_password", $new_password);
+
+                $q->execute();
+                $this->logger->LogInfo("updateUserPassword: [{$user_id}], [" . date('Y-m-d H:i:s') . "]");
+            }
+        }
+
         /* delete user */
         public function deleteUser($user_id) {
             $conn = $this->getConnection();
+
             /* remove all tasks from user */
+            $saveQuery = "DELETE FROM tasks WHERE user_id = :user_id";
+            $q = $conn->prepare($saveQuery);
+            $q->bindParam(":user_id", $user_id);
+            $q->execute();
+
+            /* remove security questions */
+            $saveQuery = "DELETE FROM security_questions WHERE user_id = :user_id";
+            $q = $conn->prepare($saveQuery);
+            $q->bindParam(":user_id", $user_id);
+            $q->execute();
+
             /* remove user */
+            $saveQuery = "DELETE FROM users WHERE user_id = :user_id";
+            $q = $conn->prepare($saveQuery);
+            $q->bindParam(":user_id", $user_id);
+            $q->execute();
+
+            $this->logger->LogInfo("deleteUser: [{$user_id}], [" . date('Y-m-d H:i:s') . "]");
         }
 
         /* get all users */
