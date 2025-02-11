@@ -203,9 +203,6 @@ $(function() {
             url: "handlers/delete_task_handler.php",
             data: values,
             success: function () {
-                // remove task from table
-                $("tr #"+id).css("display","none");
-                
                 /* update progress count & bar */
                 var tasksCompleted = parseInt(document.getElementById("progress-count-completed").innerHTML, 10);
                 var tasksDue = parseInt(document.getElementById("progress-count-total").innerHTML, 10);
@@ -222,6 +219,9 @@ $(function() {
                 updateProgressBar(tasksCompleted, tasksDue);
 
                 closeEditTaskForm();
+
+                // remove task from table
+                $("tr#"+id).css("display","none");
             },
             error: function () {
                 alert("Failed to delete task :(");
