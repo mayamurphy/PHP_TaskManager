@@ -1,5 +1,5 @@
 // move slider / switch form
-$(document).ready(function() {
+$(function() {
     $("#signup-page").click(function() {
         $("#signup-page").css("background-color","#7E9971");
         $("#login-page").css("background-color","transparent");
@@ -41,7 +41,7 @@ $(function() {
     $("#signup-form").submit(function() {
         var values = $("#signup-form").serialize();
 
-        var username = document.getElementById("signup-un").value;
+        var username = document.getElementById("signup-un").value.trim();
         var password = document.getElementById("signup-pw").value;
         var confirm_password = document.getElementById("signup-confirm-pw").value;
 
@@ -115,33 +115,52 @@ $(function() {
 });
 
 // Signup form validation
-function signupValidation() {
-    var username = document.getElementById("signup-un").value;
-    var password = document.getElementById("signup-pw").value;
-    var confirm_password = document.getElementById("signup-confirm-pw").value;
+$(function () {
+    $("#signup-un").on("keyup", function() {
+        // check if username meets character length
+        var un = $("#signup-un").val().trim();
+        if (1 > un.length || 64 < un.length) {
+            $("#signup-un").css("border-color", "#F00");
+        } else {
+            $("#signup-un").css("border-color", "#FFF");
+        }
+    });
 
-    // check if username meets character length
-    if (1 > username.length || 64 < username.length) {
-        $("#signup-un").css("border-color", "#F00");
-    } else {
-        $("#signup-un").css("border-color", "#FFF");
-    }
+    $("#signup-pw").on("keyup", function() {
+        // check if password meets criteria
+        if (8 > $("#signup-pw").val().length) {
+            $("#signup-pw").css("border-color", "#F00");
+        }
+        else {
+            $("#signup-pw").css("border-color", "#FFF");
+        }
+    });
+    
+    $("#signup-confirm-pw").on("keyup", function() {
+        // check if passwords match
+        if ($("#signup-confirm-pw").val() !== $("#signup-pw").val() || 8 > $("#signup-confirm-pw").val().length) {
+            $("#signup-pw").css("border-color", "#F00");
+            $("#signup-confirm-pw").css("border-color", "#F00");
+        }
+        else {
+            $("#signup-pw").css("border-color", "#FFF");
+            $("#signup-confirm-pw").css("border-color", "#FFF");
+        }
+    });
 
-    // check if password meets criteria
-    if (8 > password.length) {
-        $("#signup-pw").css("border-color", "#F00");
-    }
-    else {
-        $("#signup-pw").css("border-color", "#FFF");
-    }
+    $("#signup-un-pw").on("keyup", function() {
+        var un = $("#signup-un").val().trim();
+        var pw = $("#signup-pw").val();
+        var cpw = $("#signup-confirm-pw").val();
+        if ((1 > un.length || 64 < un.length) && 
+            (8 > $("#signup-pw").val().length) &&
+            (cpw !== pw.val() || 8 > cpw.length)) {
+            $("#next-button").prop("disabled",false);
+        }
+    });
 
-    // check if passwords match
-    if (confirm_password !== password || 8 > confirm_password.length) {
-        $("#signup-pw").css("border-color", "#F00");
-        $("#signup-confirm-pw").css("border-color", "#F00");
-    }
-    else {
-        $("#signup-pw").css("border-color", "#FFF");
-        $("#signup-confirm-pw").css("border-color", "#FFF");
-    }
-}
+    $("#next-button").click(function() {
+        $("#signup-un-pw").css("display", "none");
+        $("#signup-sq").css("display", "block");
+    });
+});

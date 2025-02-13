@@ -70,7 +70,7 @@ html {
     border-radius: 20px;
 }
 
-input[type="submit"] {
+input[type="submit"], #next-button input {
     cursor: pointer;
 
     background-color: #7E9971;
@@ -88,4 +88,8 @@ input[type="submit"] {
 
     height: fit-content;
     /* padding-top: 10px; */
+}
+
+#signup-sq {
+    display: none;
 }
