@@ -69,7 +69,7 @@
                         <div>
                             <!-- <label for="signup-un">Username:</label> -->
                             <input type="text" placeholder="Enter Username" id="signup-un" name="signup-un"
-                            value="<?php echo isset($_SESSION['signup_inputs']['signup-un']) ? htmlspecialchars($_SESSION['signup_inputs']['signup-un']): ""?>">
+                            value="<?php echo isset($_SESSION['signup_inputs']['signup-un']) ? htmlspecialchars($_SESSION['signup_inputs']['signup-un']) : ""?>">
                         </div>
                         <div>
                             <!-- <label for="signup-pw">Password:</label> -->
@@ -87,32 +87,78 @@
                     <div id="signup-sq">
                         <div id="security-questions">
                             <p>Security Questions</p>
+
                             <!-- <label>Question 1:</label> -->
-                            <select id="sqq1">
+                            <select id="signup-sqq1" name="signup-sqq1">
                                 <option selected disabled>--- Question 1 ---</option>
-                                <option>What was the name of your first pet?</option>
-                                <option>What city did you grow up in?</option>
-                                <option>How many siblings do you have?</option>
+                                <option value="What was the name of your first pet?" 
+                                    <?php echo isset($_SESSION['signup_inputs']['signup-sqq1']) 
+                                                            && "What was the name of your first pet?" === $_SESSION['signup_inputs']['signup-sqq1'] 
+                                                                ? "selected" 
+                                                                : ""?>>What was the name of your first pet?</option>
+                                <option value="What city did you grow up in?"
+                                    <?php echo isset($_SESSION['signup_inputs']['signup-sqq1']) 
+                                                            && "What city did you grow up in?" === $_SESSION['signup_inputs']['signup-sqq1'] 
+                                                                ? "selected" 
+                                                                : ""?>>What city did you grow up in?</option>
+                                <option value="How many siblings do you have?"
+                                    <?php echo isset($_SESSION['signup_inputs']['signup-sqq1']) 
+                                                            && "How many siblings do you have?" === $_SESSION['signup_inputs']['signup-sqq1'] 
+                                                                ? "selected" 
+                                                                : ""?>>How many siblings do you have?</option>
                             </select>
-                            <input type="text" placeholder="--- Answer 1 ---" id="sqa1"/>
+                            <input type="text" placeholder="--- Answer 1 ---" id="signup-sqa1" name="signup-sqa1"
+                                value="<?php echo isset($_SESSION['signup_inputs']['signup-sqa1'])
+                                                        ? htmlspecialchars($_SESSION['signup_inputs']['signup-sqa1'])
+                                                        : ""?>"/>
 
                             <!-- <label>Question 2:</label> -->
-                            <select id="sqq2">
+                            <select id="signup-sqq2" name="signup-sqq2">
                                 <option selected disabled>--- Question 2 ---</option>
-                                <option>What is your favorite childhood book?</option>
-                                <option>What is the name of your first car?</option>
-                                <option>What was your first job title?</option>
+                                <option value="What is your favorite childhood book?" 
+                                    <?php echo isset($_SESSION['signup_inputs']['signup-sqq2']) 
+                                                            && "What is your favorite childhood book?" === $_SESSION['signup_inputs']['signup-sqq2'] 
+                                                                ? "selected" 
+                                                                : ""?>>What is your favorite childhood book?</option>
+                                <option value="What is the name of your first car?" 
+                                    <?php echo isset($_SESSION['signup_inputs']['signup-sqq2']) 
+                                                            && "What is the name of your first car?" === $_SESSION['signup_inputs']['signup-sqq2'] 
+                                                                ? "selected" 
+                                                                : ""?>>What is the name of your first car?</option>
+                                <option value="What was your first job title?" 
+                                    <?php echo isset($_SESSION['signup_inputs']['signup-sqq2']) 
+                                                            && "What was your first job title?" === $_SESSION['signup_inputs']['signup-sqq2'] 
+                                                                ? "selected" 
+                                                                : ""?>>What was your first job title?</option>
                             </select>
-                            <input type="text" placeholder="--- Answer 2 ---" id="sqa2"/>
+                            <input type="text" placeholder="--- Answer 2 ---" id="signup-sqa2" name="signup-sqa2"
+                                value="<?php echo isset($_SESSION['signup_inputs']['signup-sqa2'])
+                                                        ? htmlspecialchars($_SESSION['signup_inputs']['signup-sqa2'])
+                                                        : ""?>"/>
 
                             <!-- <label>Question 3:</label> -->
-                            <select id="sqq3">
+                            <select id="signup-sqq3" name="signup-sqq3">
                                 <option selected disabled>--- Question 3 ---</option>
-                                <option>What is your favorite sports team?</option>
-                                <option>What was your high school mascot?</option>
-                                <option>What is your favorite holiday?</option>
+                                <option value="What is your favorite sports team?" 
+                                    <?php echo isset($_SESSION['signup_inputs']['signup-sqq3']) 
+                                                            && "What is your favorite sports team?" === $_SESSION['signup_inputs']['signup-sqq3'] 
+                                                                ? "selected" 
+                                                                : ""?>>What is your favorite sports team?</option>
+                                <option value="What was your high school mascot?" 
+                                    <?php echo isset($_SESSION['signup_inputs']['signup-sqq3']) 
+                                                            && "What was your high school mascot?" === $_SESSION['signup_inputs']['signup-sqq3'] 
+                                                                ? "selected" 
+                                                                : ""?>>What was your high school mascot?</option>
+                                <option value="What is your favorite holiday?" 
+                                    <?php echo isset($_SESSION['signup_inputs']['signup-sqq3']) 
+                                                            && "What is your favorite holiday?" === $_SESSION['signup_inputs']['signup-sqq3'] 
+                                                                ? "selected" 
+                                                                : ""?>>What is your favorite holiday?</option>
                             </select>
-                            <input type="text" placeholder="--- Answer 3 ---" id="sqa3"/>
+                            <input type="text" placeholder="--- Answer 3 ---" id="signup-sqa3" name="signup-sqa3"
+                                value="<?php echo isset($_SESSION['signup_inputs']['signup-sqa3'])
+                                                        ? htmlspecialchars($_SESSION['signup_inputs']['signup-sqa3'])
+                                                        : ""?>"/>
                         </div>
                         <div id="submit-button">
                             <input type="submit" value="Sign Up">

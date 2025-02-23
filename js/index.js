@@ -25,7 +25,7 @@ $(function() {
         $("#signup-un").css("border-color", "#F00");
     }
 
-    if (0 < $("#error-messages-invalid-login").innerHtml.length) {
+    if (0 < $("#error-messages-invalid-login").length) {
         $("#login-page").css("background-color","#7E9971");
         $("#signup-page").css("background-color","transparent");
         $(".login-form-container").css("display","block");
@@ -41,9 +41,15 @@ $(function() {
     $("#signup-form").submit(function() {
         var values = $("#signup-form").serialize();
 
-        var username = document.getElementById("signup-un").value.trim();
-        var password = document.getElementById("signup-pw").value;
-        var confirm_password = document.getElementById("signup-confirm-pw").value;
+        var username = $("#signup-un").val().trim();
+        var password = $("#signup-pw").val();
+        var confirm_password = $("#signup-pw").val();
+        var sqq1 = $("#signup-sqq1").val();
+        var sqa1 = $("#signup-sqa1").val();
+        var sqq2 = $("#signup-sqq2").val();
+        var sqa2 = $("#signup-sqa2").val();
+        var sqq3 = $("#signup-sqq3").val();
+        var sqa3 = $("#signup-sqa3").val();
 
         if ("" === username) {
             if (0 === $("#error-messages-un").length) {
@@ -124,7 +130,7 @@ $(function () {
     $("#signup-un").on("keyup", function() {
         // check if username meets character length
         var un = $("#signup-un").val().trim();
-        if (1 > un.length || 64 < un.length) {
+        if (0 > un.length || 64 < un.length) {
             $("#signup-un").css("border-color", "#F00");
         } else {
             $("#signup-un").css("border-color", "#FFF");
@@ -159,7 +165,7 @@ $(function () {
         var pw = $("#signup-pw").val();
         var cpw = $("#signup-confirm-pw").val();
 
-        if ((1 < un.length && 64 > un.length) && 
+        if ((0 < un.length && 64 > un.length) && 
             (8 <= pw.length) &&
             (cpw === pw && 8 <= cpw.length)) {
             $("#next-button").prop("disabled",false);

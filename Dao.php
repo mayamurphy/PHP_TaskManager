@@ -96,7 +96,14 @@
             $this->logger->LogInfo("addUser: [{$username}], [" . date('Y-m-d H:i:s') . "]");
         }
 
-        // user_id, sqq1, sqa1, sqq2, sqa2, sqq3, sqa3
+        /* get user id */
+        public function getUserId($username) {
+            $conn = $this->getConnection();
+            $res = $conn->query("SELECT user_id FROM users WHERE username = '{$username}';")->fetchAll(PDO::FETCH_ASSOC);
+            $this->logger->LogInfo("getUserId: " . $res[0]['user_id']);
+            return $res[0]['user_id'];
+        }
+
         /* add user security questions */
         public function addUserSecurityQuestions($user_id, $sqq1, $sqa1, $sqq2, $sqa2, $sqq3, $sqa3) {
             $conn = $this->getConnection();
