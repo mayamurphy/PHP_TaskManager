@@ -25,7 +25,7 @@ $(function() {
         $("#signup-un").css("border-color", "#F00");
     }
 
-    if (0 < $("#error-messages-invalid-login").length) {
+    if (0 < $("#error-messages-invalid-login").innerHtml.length) {
         $("#login-page").css("background-color","#7E9971");
         $("#signup-page").css("background-color","transparent");
         $(".login-form-container").css("display","block");
@@ -116,6 +116,11 @@ $(function() {
 
 // Signup form validation
 $(function () {
+    // prevent form submit on enter
+    $("#signup-form").on("keydown", function(e) {
+        return e.key != "Enter";
+    });
+
     $("#signup-un").on("keyup", function() {
         // check if username meets character length
         var un = $("#signup-un").val().trim();
@@ -148,17 +153,20 @@ $(function () {
         }
     });
 
+    // enable "next" button to continue to security questions
     $("#signup-un-pw").on("keyup", function() {
         var un = $("#signup-un").val().trim();
         var pw = $("#signup-pw").val();
         var cpw = $("#signup-confirm-pw").val();
-        if ((1 > un.length || 64 < un.length) && 
-            (8 > $("#signup-pw").val().length) &&
-            (cpw !== pw.val() || 8 > cpw.length)) {
+
+        if ((1 < un.length && 64 > un.length) && 
+            (8 <= pw.length) &&
+            (cpw === pw && 8 <= cpw.length)) {
             $("#next-button").prop("disabled",false);
         }
     });
 
+    // display security questions when "next" button is clicked
     $("#next-button").click(function() {
         $("#signup-un-pw").css("display", "none");
         $("#signup-sq").css("display", "block");

@@ -30,11 +30,13 @@
             <!-- Login form -->
             <div class="login-form-container">
                 <!-- error: Invalid login  -->
+                <div id='error-messages'>
                 <?php
                     if (isset($_SESSION["invalid_login"]) && $_SESSION["invalid_login"]) {
-                        echo "<div id='error-messages-invalid-login'>Invalid login.</div>";
+                        echo "<p id='error-messages-invalid-login'>Invalid login.</p>";
                     }
                 ?>
+                </div>
                 <form id="login-form" method="POST" action="handlers/login_handler.php">
                     <div>
                         <!-- <label for="login-un">Username:</label> -->
@@ -53,14 +55,17 @@
             
             <!-- Sign up form -->
             <div class="signup-form-container">
-                <!-- error: username taken -->
-                <?php
-                    if (isset($_SESSION["username_exists"]) && $_SESSION["username_exists"]) {
-                        echo "<div id='error-messages-un-taken'>Username taken.</div>";
-                    }
-                ?>
-                <form id="signup-form">
+                <form id="signup-form" autocomplete="off">
                     <div id="signup-un-pw">
+                        
+                        <!-- error: username taken -->
+                        <div id='error-messages'>
+                        <?php
+                            if (isset($_SESSION["username_exists"]) && $_SESSION["username_exists"]) {
+                                echo "<p id='error-messages-un-taken'>Username taken.</p>";
+                            }
+                        ?>
+                        </div>
                         <div>
                             <!-- <label for="signup-un">Username:</label> -->
                             <input type="text" placeholder="Enter Username" id="signup-un" name="signup-un"
@@ -81,35 +86,33 @@
 
                     <div id="signup-sq">
                         <div id="security-questions">
-                            <label>Question 1:</label>
+                            <p>Security Questions</p>
+                            <!-- <label>Question 1:</label> -->
                             <select id="sqq1">
+                                <option selected disabled>--- Question 1 ---</option>
                                 <option>What was the name of your first pet?</option>
-                                <option>What is your mother's maiden name?</option>
-                                <option>What was the street name of your childhood home?</option>
-                                <option>What is your oldest sibling's middle name?</option>
-                                <option>What was the name of your first high school teacher?</option>
+                                <option>What city did you grow up in?</option>
+                                <option>How many siblings do you have?</option>
                             </select>
-                            <input type="text" id="sqa1"/>
+                            <input type="text" placeholder="--- Answer 1 ---" id="sqa1"/>
 
-                            <label>Question 2:</label>
+                            <!-- <label>Question 2:</label> -->
                             <select id="sqq2">
+                                <option selected disabled>--- Question 2 ---</option>
                                 <option>What is your favorite childhood book?</option>
                                 <option>What is the name of your first car?</option>
-                                <option>What city did you grow up in?</option>
                                 <option>What was your first job title?</option>
-                                <option>What is your favorite sports team?</option>
                             </select>
-                            <input type="text" id="sqa2"/>
+                            <input type="text" placeholder="--- Answer 2 ---" id="sqa2"/>
 
-                            <label>Question 3:</label>
+                            <!-- <label>Question 3:</label> -->
                             <select id="sqq3">
+                                <option selected disabled>--- Question 3 ---</option>
+                                <option>What is your favorite sports team?</option>
                                 <option>What was your high school mascot?</option>
-                                <option>What is your spouse's middle name?</option>
-                                <option>What is your favorite childhood holiday tradition?</option>
-                                <option>What is the name of your first email address?</option>
-                                <option>What was the name of your first pet as an adult?</option>
+                                <option>What is your favorite holiday?</option>
                             </select>
-                            <input type="text" id="sqa3"/>
+                            <input type="text" placeholder="--- Answer 3 ---" id="sqa3"/>
                         </div>
                         <div id="submit-button">
                             <input type="submit" value="Sign Up">
