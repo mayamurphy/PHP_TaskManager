@@ -18,10 +18,7 @@
         $_SESSION['signup_inputs'] = $_POST;
     }
     else {
-        $dao->addUser($username, $password);
-
-        $id = $dao->getUserId(username: $username);
-        $dao->addUserSecurityQuestions($id, $sqq1, $sqa1, $sqq2, $sqa2, $sqq3, $sqa3);
+        $dao->addUser($username, $password, $sqq1, $sqa1, $sqq2, $sqa2, $sqq3, $sqa3);
 
         unset($_SESSION['username_exists']);
         unset($_SESSION['signup_inputs']);

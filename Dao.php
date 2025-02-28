@@ -80,7 +80,7 @@
         }
 
         /* add user */
-        public function addUser($username, $password) {
+        public function addUser($username, $password, $sqq1, $sqa1, $sqq2, $sqa2, $sqq3, $sqa3) {
             /* password salt */
             $options = ['cost' => 10];
             $password = password_hash($password, PASSWORD_BCRYPT, $options);
@@ -92,6 +92,8 @@
             $q->bindParam(":username", $username);
             $q->bindParam(":password", $password);
             $q->execute();
+
+            $this->addUserSecurityQuestions($this->getUserId($username), $sqq1, $sqa1, $sqq2, $sqa2, $sqq3, $sqa3);
             
             $this->logger->LogInfo("addUser: [{$username}], [" . date('Y-m-d H:i:s') . "]");
         }

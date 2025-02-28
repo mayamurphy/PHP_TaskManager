@@ -45,11 +45,11 @@ $(function() {
         var password = $("#signup-pw").val();
         var confirm_password = $("#signup-pw").val();
         var sqq1 = $("#signup-sqq1").val();
-        var sqa1 = $("#signup-sqa1").val();
+        var sqa1 = $("#signup-sqa1").val().trim();
         var sqq2 = $("#signup-sqq2").val();
-        var sqa2 = $("#signup-sqa2").val();
+        var sqa2 = $("#signup-sqa2").val().trim();
         var sqq3 = $("#signup-sqq3").val();
-        var sqa3 = $("#signup-sqa3").val();
+        var sqa3 = $("#signup-sqa3").val().trim();
 
         if ("" === username) {
             if (0 === $("#error-messages-un").length) {
@@ -103,6 +103,28 @@ $(function() {
             $("div").remove("#error-messages-confirm-pw");
             $("#signup-pw").css("border-color", "#FFF");
             $("#signup-confirm-pw").css("border-color", "#FFF");
+        }
+
+        for (var i=1; i<4; i++) {
+            if (!$("#signup-sqq"+i).val()) {
+                $("#signup-sqq"+i).css("border-color","#F00");
+            }
+            else {
+                $("#signup-sqq"+i).css("border-color", "#FFF");
+            }
+        }
+
+        for (var i=1; i<4; i++) {
+            if ("" === $("#signup-sqa"+i).val().trim()) {
+                $("#signup-sqa"+i).css("border-color","#F00");
+            }
+            else {
+                $("#signup-sqa"+i).css("border-color", "#FFF");
+            }
+        }
+
+        if (!sqq1 || "" === sqa1 || !sqq2 || "" === sqa2 || !sqq3 || "" === sqa3) {
+            return false;
         }
 
         $.ajax ({

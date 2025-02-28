@@ -103,7 +103,7 @@ input[type="submit"], #next-button {
 }
 
 #signup-sq {
-    /* display: none; */
+    display: none;
 }
 
 #signup-sq select {
