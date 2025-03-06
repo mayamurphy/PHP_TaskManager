@@ -1,5 +1,8 @@
 <!DOCTYPE html>
         <?php require_once "header.php"?>
+        <header>
+            <title>Tasks</title>
+        </header>
             <div id="progress-bar-container">
                 Today's Progress - 
                     <span id="progress-count-completed"><?php echo $_SESSION["tasks_completed_today"] ?></span> /

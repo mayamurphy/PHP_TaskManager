@@ -1,5 +1,9 @@
 <!DOCTYPE html>
         <?php require_once "header.php"?>
+        <header>
+            <script type="text/javascript" src="js\settings.js"></script>
+            <title>Settings</title>
+        </header>
         <div id="settings">
             <span>settings</span>
             <hr>
@@ -7,34 +11,31 @@
                 <span>change security questions</span>
                 <form id="securityQuestionsForm">
                     <label>Question 1:</label>
-                    <select id="sqq1">
-                        <option>What was the name of your first pet?</option>
-                        <option>What is your mother's maiden name?</option>
-                        <option>What was the street name of your childhood home?</option>
-                        <option>What is your oldest sibling's middle name?</option>
-                        <option>What was the name of your first high school teacher?</option>
+                    <select id="signup-sqq1" name="signup-sqq1">
+                        <!-- <option selected disabled>--- Question 1 ---</option> -->
+                        <option value="What was the name of your first pet?">What was the name of your first pet?</option>
+                        <option value="What city did you grow up in?">What city did you grow up in?</option>
+                        <option value="How many siblings do you have?">How many siblings do you have?</option>
                     </select>
-                    <input type="text" id="sqa1"/>
+                    <input type="text" placeholder="--- Answer 1 ---" id="signup-sqa1" name="signup-sqa1"/>
 
                     <label>Question 2:</label>
-                    <select id="sqq2">
-                        <option>What is your favorite childhood book?</option>
-                        <option>What is the name of your first car?</option>
-                        <option>What city did you grow up in?</option>
-                        <option>What was your first job title?</option>
-                        <option>What is your favorite sports team?</option>
+                    <select id="signup-sqq2" name="signup-sqq2">
+                        <!-- <option selected disabled>--- Question 2 ---</option> -->
+                        <option value="What is your favorite childhood book?">What is your favorite childhood book?</option>
+                        <option value="What is the name of your first car?">What is the name of your first car?</option>
+                        <option value="What was your first job title?">What was your first job title?</option>
                     </select>
-                    <input type="text" id="sqa2"/>
+                    <input type="text" placeholder="--- Answer 2 ---" id="signup-sqa2" name="signup-sqa2"/>
 
                     <label>Question 3:</label>
-                    <select id="sqq3">
-                        <option>What was your high school mascot?</option>
-                        <option>What is your spouse's middle name?</option>
-                        <option>What is your favorite childhood holiday tradition?</option>
-                        <option>What is the name of your first email address?</option>
-                        <option>What was the name of your first pet as an adult?</option>
+                    <select id="signup-sqq3" name="signup-sqq3">
+                        <!-- <option selected disabled>--- Question 3 ---</option> -->
+                        <option value="What is your favorite sports team?">What is your favorite sports team?</option>
+                        <option value="What was your high school mascot?">What was your high school mascot?</option>
+                        <option value="What is your favorite holiday?">What is your favorite holiday?</option>
                     </select>
-                    <input type="text" id="sqa3"/>
+                    <input type="text" placeholder="--- Answer 3 ---" id="signup-sqa3" name="signup-sqa3"/>
 
                     <button>Update Security Questions</button>
                 </form>
