@@ -106,7 +106,7 @@
             return $res[0]['user_id'];
         }
 
-        /* add user security questions */
+        /* add user security questions & answers */
         public function addUserSecurityQuestions($user_id, $sqq1, $sqa1, $sqq2, $sqa2, $sqq3, $sqa3) {
             $conn = $this->getConnection();
             $saveQuery = "INSERT INTO security_questions (user_id, sqq1, sqa1, sqq2, sqa2, sqq3, sqa3)
@@ -124,7 +124,14 @@
             $this->logger->LogInfo("addUserSecurityQuestions: [{$user_id}], [" . date('Y-m-d H:i:s') . "]");
         }
 
-        /* update user security questions */
+        /* get user security questions & answers */
+        public function getUserSecurityQuestions($user_id) {
+            $conn = $this->getConnection();
+            $this->logger->LogInfo("getUserSecurityQuestions: [{$user_id}], [" . date('Y-m-d H:i:s') . "]");
+            return $conn->query("SELECT * FROM security_questions WHERE user_id = '{$user_id}'")->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        /* update user security questions & answers */
         public function updateUserSecurityQuestions($user_id, $sqq1, $sqa1, $sqq2, $sqa2, $sqq3, $sqa3) {
             $conn = $this->getConnection();
             $saveQuery = 
