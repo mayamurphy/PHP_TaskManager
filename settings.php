@@ -1,7 +1,7 @@
         <?php require_once "header.php"?>
         <header>
             <link rel="stylesheet" href="css/settings.css">
-            <!-- <script type="text/javascript" src="js\settings.js"></script> -->
+            <script type="text/javascript" src="js\settings.js"></script>
             <title>Settings</title>
         </header>
         <div id="settings">
@@ -12,6 +12,7 @@
                 <form id="securityQuestionsForm">
                     <?php
                         $sq = $dao->getUserSecurityQuestions($_SESSION['user_id'])[0];
+                        echo "<input type='hidden' id='user-id' name='user-id' value='" . $_SESSION['user_id'] . "'>";
                         echo "<p><div id='question-label'>Question 1:</div>" .
                             "<select id='settings-sqq1' name='settings-sqq1'>" .
                                 "<option value='What was the name of your first pet?' 

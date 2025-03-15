@@ -141,7 +141,7 @@
                             sqq2 = :sqq2,
                             sqa2 = :sqa2,
                             sqq3 = :sqq3,
-                            sqa3 = :sqa3,
+                            sqa3 = :sqa3
                         WHERE user_id = :user_id;";
             $q = $conn->prepare($saveQuery);
             $q->bindParam(":user_id", $user_id);
