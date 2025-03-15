@@ -1,17 +1,18 @@
         <?php require_once "header.php"?>
         <header>
-            <script type="text/javascript" src="js\settings.js"></script>
+            <link rel="stylesheet" href="css/settings.css">
+            <!-- <script type="text/javascript" src="js\settings.js"></script> -->
             <title>Settings</title>
         </header>
         <div id="settings">
-            <span>settings</span>
+            <div>settings</div>
             <hr>
             <div id="security-questions">
-                <span>change security questions</span>
+                <p>change security questions</p>
                 <form id="securityQuestionsForm">
                     <?php
                         $sq = $dao->getUserSecurityQuestions($_SESSION['user_id'])[0];
-                        echo "<label>Question 1:</label>" .
+                        echo "<p><div id='question-label'>Question 1:</div>" .
                             "<select id='settings-sqq1' name='settings-sqq1'>" .
                                 "<option value='What was the name of your first pet?' 
                                     " . (isset($_SESSION['settings_inputs']['settings-sqq1']) 
@@ -38,9 +39,9 @@
                             "<input type='text' placeholder='--- Answer 1 ---' id='settings-sqa1' name='settings-sqa1'
                                 value='" . (isset($_SESSION['settings_inputs']['settings-sqa1'])
                                                         ? htmlspecialchars($_SESSION['settings_inputs']['settings-sqa1'])
-                                                        : $sq['sqa1'] ). "'/>" .
+                                                        : $sq['sqa1'] ). "'/></p>" .
 
-                            "<label>Question 2:</label>" .
+                            "<p><div id='question-label'>Question 2:</div>" .
                             "<select id='settings-sqq2' name='settings-sqq2'>" .
                                 "<option value='What is your favorite childhood book?' 
                                     " . (isset($_SESSION['settings_inputs']['settings-sqq2']) 
@@ -67,9 +68,9 @@
                             "<input type='text' placeholder='--- Answer 2 ---' id='settings-sqa2' name='settings-sqa2'
                                 value='" . (isset($_SESSION['settings_inputs']['settings-sqa2'])
                                                         ? htmlspecialchars($_SESSION['settings_inputs']['settings-sqa2'])
-                                                        : $sq['sqa2'] ). "'/>" .
+                                                        : $sq['sqa2'] ). "'/></p>" .
 
-                            "<label>Question 3:</label>" .
+                            "<p><div id='question-label'>Question 3:</div>" .
                             "<select id='settings-sqq3' name='settings-sqq3'>" .
                                 "<option value='What is your favorite sports team?' 
                                     " . (isset($_SESSION['settings_inputs']['settings-sqq3']) 
@@ -96,18 +97,20 @@
                             "<input type='text' placeholder='--- Answer 3 ---' id='settings-sqa3' name='settings-sqa3'
                                 value='" . (isset($_SESSION['settings_inputs']['settings-sqa3'])
                                                         ? htmlspecialchars($_SESSION['settings_inputs']['settings-sqa3'])
-                                                        : $sq['sqa3'] ). "'/>";
+                                                        : $sq['sqa3'] ). "'/></p>";
                             ?>
                     <button>Update Security Questions</button>
                 </form>
                 <hr>
             </div>
             <div id="password-reset">
-                <span>password reset</span>
+                <p>password reset</p>
                 <form id="passwordResetForm">
-                    <input type="password" placeholder="Enter Old Password" id="old-pw" name="old-pw">
-                    <input type="password" placeholder="Enter New Password" id="new-pw" name="new-pw">
-                    <input type="password" placeholder="Confirm New Password" id="new-confirm-pw" name="new-confirm-pw">
+                    <p>
+                        <input type="password" placeholder="Enter Old Password" id="old-pw" name="old-pw">
+                        <input type="password" placeholder="Enter New Password" id="new-pw" name="new-pw">
+                        <input type="password" placeholder="Confirm New Password" id="new-confirm-pw" name="new-confirm-pw">
+                    </p>
 
                     <button>Update Password</button>
                 </form>
@@ -115,7 +118,7 @@
             <div id="delete-account">
                 <hr>
                 <form id="deleteAccount">
-                    <button>delete account</button>
+                    <p><button>Delete Account</button></p>
                 </form>
                 <hr>
             </div>

@@ -1,0 +1,34 @@
+#question-label {
+    padding-bottom: 5px;
+}
+
+#security-questions select {
+    height: 20px;
+    width: 250px;
+
+    /* align-self: center; */
+    
+    box-sizing: border-box;
+
+    text-wrap: wrap;
+}
+
+#security-questions input,
+#password-reset input {
+    width: 250px;
+
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+#securityQuestionsForm, #passwordResetForm {
+    margin-bottom: 25px;
+}
+#password-reset input {
+    margin-bottom: 5px;
+}
+
+#delete-account button {
+    color: #da2808;
+    font-weight: bolder;
+}
