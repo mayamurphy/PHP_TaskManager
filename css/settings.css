@@ -1,3 +1,12 @@
+#security-questions,
+#password-reset,
+#delete-account {
+    border: 2px solid #FFF;
+    border-radius: 20px;
+
+    background-color: #DAD7CD;
+}
+
 #question-label {
     padding-bottom: 5px;
 }
@@ -5,8 +14,6 @@
 #security-questions select {
     height: 20px;
     width: 250px;
-
-    /* align-self: center; */
     
     box-sizing: border-box;
 
@@ -17,6 +24,7 @@
 #password-reset input {
     width: 250px;
 
+    margin-top: 5px;
     box-sizing: border-box;
     border-radius: 5px;
 }
@@ -24,8 +32,9 @@
 #securityQuestionsForm, #passwordResetForm {
     margin-bottom: 25px;
 }
-#password-reset input {
-    margin-bottom: 5px;
+
+#password-reset-error-message {
+    color: red;
 }
 
 #delete-account button {

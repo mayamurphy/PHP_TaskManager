@@ -85,6 +85,73 @@ $(function() {
         return e.key != "Enter";
     });
 
+    $("#passwordResetForm").submit(function() {
+        var values = $("#passwordResetForm").serialize();
+
+        var old_pw = $("#old-pw").val().trim();
+        var new_pw = $("#new-pw").val().trim();
+        var new_confirm_pw = $("#new-confirm-pw").val().trim();
+
+        if (!old_pw || !new_pw || !new_confirm_pw) {
+            return false;
+        }
+
+        if (8 > $("#new-pw").val().trim().length) {
+            $("#new-pw").css("border-color", "#F00");
+            return false;
+        }
+        else {
+            $("#new-pw").css("border-color", "#FFF");
+        }
+
+        if (new_pw !== new_confirm_pw) {
+            $("#new-pw").css("border-color", "#F00");
+            $("#new-confirm-pw").css("border-color", "#F00");
+            return false;
+        }
+        else if (new_pw === new_confirm_pw && 8 <= new_pw.length) {
+            $("#new-pw").css("border-color", "#FFF");
+            $("#new-confirm-pw").css("border-color", "#FFF");
+        }
+        
+        $.ajax({
+            type: "POST",
+            url: "handlers/reset_password_handler.php",
+            data: values,
+            success: function () {
+                window.location.reload();
+            },
+            error: function () {
+                alert("Failed to update password :(");
+            }
+        });
+        return false;
+    });
+
+    $("#new-pw").on("keyup", function() {
+        // check if password meets criteria
+        if (8 > $("#new-pw").val().trim().length) {
+            $("#new-pw").css("border-color", "#F00");
+        }
+        else {
+            $("#new-pw").css("border-color", "#FFF");
+        }
+    });
+    
+    $("#new-confirm-pw").on("keyup", function() {
+        var new_pw = $("#new-pw").val().trim();
+        var new_confirm_pw = $("#new-confirm-pw").val().trim();
+
+        if (new_pw !== new_confirm_pw) {
+            $("#new-pw").css("border-color", "#F00");
+            $("#new-confirm-pw").css("border-color", "#F00");
+        }
+        else if (new_pw === new_confirm_pw && 8 <= new_pw.length) {
+            $("#new-pw").css("border-color", "#FFF");
+            $("#new-confirm-pw").css("border-color", "#FFF");
+        }
+    });
+
     // prevent form submit on enter
     $("#deleteAccount").on("keydown", function(e) {
         return e.key != "Enter";

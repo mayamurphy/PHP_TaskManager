@@ -102,10 +102,18 @@
                             ?>
                     <button>Update Security Questions</button>
                 </form>
-                <hr>
             </div>
+            <hr>
             <div id="password-reset">
                 <p>password reset</p>
+                <div id="password-reset-error-message">
+                    <?php
+                        if (isset($_SESSION['error-message'])) {
+                            echo $_SESSION['error-message'];
+                            unset($_SESSION['error-message']);
+                        }
+                    ?>
+                </div>
                 <form id="passwordResetForm">
                     <p>
                         <input type="password" placeholder="Enter Old Password" id="old-pw" name="old-pw">
@@ -116,12 +124,12 @@
                     <button>Update Password</button>
                 </form>
             </div>
+            <hr>
             <div id="delete-account">
-                <hr>
                 <form id="deleteAccount">
                     <p><button>Delete Account</button></p>
                 </form>
-                <hr>
             </div>
+            <hr>
         </div>
 <?php require_once 'footer.php'?>
