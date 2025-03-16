@@ -153,7 +153,44 @@ $(function() {
     });
 
     // prevent form submit on enter
-    $("#deleteAccount").on("keydown", function(e) {
+    $("#deleteAccountForm").on("keydown", function(e) {
         return e.key != "Enter";
+    });
+
+    $("#delete-open-message").on("click", function() {
+        $("#delete-account-message").css("display", "inline-block");
+        $("#security-questions").css("display", "none");
+        $("#password-reset").css("display", "none");
+        $("#delete-open-message").css("display", "none");
+    });
+
+    $("#delete-cancel").on("click", function() {
+        $("#delete-open-message").css("display", "inline-block");
+        $("#security-questions").css("display", "inline-block");
+        $("#password-reset").css("display", "inline-block");
+        $("#delete-account-message").css("display", "none");
+    });
+
+    $("#deleteAccountForm").submit(function() {
+        var values = $("#deleteAccountForm").serialize();
+        
+        var un = $("#confirm-un").val().trim();
+
+        if (!un) {
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "handlers/delete_account_handler.php",
+            data: values,
+            success: function () {
+                window.location.reload();
+            },
+            error: function () {
+                alert("Failed to delete account :(");
+            }
+        });
+        return false;
     });
 });

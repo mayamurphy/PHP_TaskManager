@@ -29,6 +29,12 @@
     border-radius: 5px;
 }
 
+#confirm-un {
+    width: 250px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
 #securityQuestionsForm, #passwordResetForm {
     margin-bottom: 25px;
 }
@@ -37,7 +43,17 @@
     color: red;
 }
 
-#delete-account button {
+#delete-open-message,
+#delete-submit {
+    margin-top: 5px;
     color: #da2808;
     font-weight: bolder;
+}
+
+#delete-account button {
+    margin: 5px;
+}
+
+#delete-account-message {
+    display: none;
 }

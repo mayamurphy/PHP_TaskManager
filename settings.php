@@ -126,9 +126,24 @@
             </div>
             <hr>
             <div id="delete-account">
-                <form id="deleteAccount">
-                    <p><button>Delete Account</button></p>
-                </form>
+                <div id="delete-account-error-message">
+                    <?php
+                        if (isset($_SESSION['delete-account-error'])) {
+                            echo $_SESSION['delete-account-error'];
+                            unset($_SESSION['delete-account-error']);
+                        }
+                    ?>
+                </div>
+                <p><button id="delete-open-message">Delete Account</button></p>
+                <div id="delete-account-message">
+                    <p>This action cannot be undone. This will permanently delete your account, tasks, and settings.</p>
+                    <p><em>To delete your account, please confirm your username.</em></p>
+                    <form id="deleteAccountForm" autocomplete="off">
+                        <input type="text" id="confirm-un" name="confirm-un"/>
+                        <button id="delete-submit">PERMANENTLY DELETE ACCOUNT</button>
+                     </form>
+                    <button id="delete-cancel">Cancel</button>
+                </div>
             </div>
             <hr>
         </div>
