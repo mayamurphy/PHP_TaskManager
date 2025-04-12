@@ -10,7 +10,6 @@ function openAddTaskForm() {
 // AJAX for AddTaskForm
 $(function() {
     $("#addTaskForm").submit(function() {
-        alert("add")
         var values = $("#addTaskForm").serialize();
 
         var name = document.getElementById("add-task-name").value;
@@ -143,13 +142,17 @@ $(function() {
                     $("#"+id+" #tt-name").html(name);
                 }
 
-                if (desc || due_date) {
+                if (desc) {
+                    $("#"+id+" #tt-desc").html(dsec);
+                }
+
+                if (due_date) {
                     var due = 
                         due_date.substring(due_date.indexOf("-")+1,due_date.lastIndexOf("-"))+"-"+  // month
                         due_date.substring(due_date.lastIndexOf("-")+1,due_date.length)+"-"+        // day
-                        due_date.substring(0,due_date.indexOf("-"));                                // year
-
-                    $("#"+id+" #tt-desc-due").html("<p>"+desc+"</p><p>"+due+"</p>");
+                        due_date.substring(0,due_date.indexOf("-"));
+                    
+                    $("#"+id+" #tt-due").html("Due: "+due);
                 }
 
                 if (status) {
@@ -169,9 +172,16 @@ $(function() {
 
                 if ("Completed" === status && "Completed" !== old_status) {
                     tasksCompleted++;   // increment progress
+                    /* add completed date */
+                    var completedDate = new Date();
+                    $("#"+id+" #tt-completed").html("Completed: "+
+                        ((completedDate.getMonth() > 8) ? (completedDate.getMonth() + 1) : ('0' + (completedDate.getMonth() + 1))) + '-' + 
+                        ((completedDate.getDate() > 9) ? completedDate.getDate() : ('0' + completedDate.getDate())) + '-' + 
+                        completedDate.getFullYear());
                 }
                 if ("Completed" !== status && "Completed" === old_status) {
                     tasksCompleted--;   // decrement progress
+                    $("#"+id+" #tt-completed").html("");        // clear "completed date"
                 }
                 
                 updateProgressBar(tasksCompleted, tasksDue);
