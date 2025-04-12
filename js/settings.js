@@ -161,6 +161,7 @@ $(function() {
         $("#delete-account-message").css("display", "inline-block");
         $("#security-questions").css("display", "none");
         $("#password-reset").css("display", "none");
+        $(".settings-hr").css("display", "none");
         $("#delete-open-message").css("display", "none");
     });
 
@@ -168,6 +169,7 @@ $(function() {
         $("#delete-open-message").css("display", "inline-block");
         $("#security-questions").css("display", "inline-block");
         $("#password-reset").css("display", "inline-block");
+        $(".settings-hr").css("display", "block");
         $("#delete-account-message").css("display", "none");
     });
 

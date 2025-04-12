@@ -103,7 +103,7 @@
                     <button>Update Security Questions</button>
                 </form>
             </div>
-            <hr>
+            <hr class="settings-hr">
             <div id="password-reset">
                 <p>password reset</p>
                 <div id="password-reset-error-message">
@@ -124,7 +124,7 @@
                     <button>Update Password</button>
                 </form>
             </div>
-            <hr>
+            <hr class="settings-hr">
             <div id="delete-account">
                 <div id="delete-account-error-message">
                     <?php
